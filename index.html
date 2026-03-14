@@ -1,911 +1,2244 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Edwin Muema | Cloud Security Engineer</title>
+    <meta
+      name="description"
+      content="Cloud Security Engineer specializing in securing cloud-native applications from code to production. AppSec, DevSecOps, VAPT."
+    />
+    <meta property="og:title" content="Edwin Muema | Cloud Security Engineer" />
+    <meta
+      property="og:description"
+      content="Securing cloud-native applications from code to production."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://infosecnarrator.github.io" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #060810;
+        --bg2: #0b0f1a;
+        --bgc: #0e1322;
+        --bge: #12192b;
+        --brd: #1a2540;
+        --brdh: #2a3d60;
+        --tx: #cbd5e1;
+        --txs: #7b8ba5;
+        --txm: #475569;
+        --txb: #f1f5f9;
+        --ac: #388eff;
+        --acl: #60a5fa;
+        --acd: rgba(56, 142, 255, 0.1);
+        --acg: rgba(56, 142, 255, 0.18);
+        --gr: #34d399;
+        --grd: rgba(52, 211, 153, 0.1);
+        --am: #fbbf24;
+        --amd: rgba(251, 191, 36, 0.1);
+        --fd: "Outfit", sans-serif;
+        --fb: "DM Sans", sans-serif;
+        --fm: "JetBrains Mono", monospace;
+        --mw: 1140px;
+        --r: 8px;
+        --rl: 12px;
+        --t: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 72px;
+      }
+      body {
+        font-family: var(--fb);
+        background: var(--bg);
+        color: var(--tx);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      a {
+        color: var(--ac);
+        text-decoration: none;
+        transition: color var(--t);
+      }
+      a:hover {
+        color: var(--acl);
+      }
+      strong {
+        color: var(--txb);
+        font-weight: 600;
+      }
+      ::selection {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.025) 2px,
+          rgba(0, 0, 0, 0.025) 4px
+        );
+      }
+      .gbg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(56, 142, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 142, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .gbg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 25% 15%,
+            rgba(56, 142, 255, 0.06) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 75% 85%,
+            rgba(52, 211, 153, 0.025) 0%,
+            transparent 45%
+          );
+      }
+      .svgd {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(6, 8, 16, 0.9);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--brd);
+      }
+      .ni {
+        max-width: var(--mw);
+        margin: 0 auto;
+        padding: 0 28px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nl {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .lm {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: 1.5px solid var(--ac);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--fm);
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--ac);
+        background: var(--acd);
+        position: relative;
+      }
+      .lm::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 10px;
+        border: 1px solid rgba(56, 142, 255, 0.08);
+      }
+      .lt {
+        font-family: var(--fd);
+        font-weight: 700;
+        font-size: 17px;
+        color: var(--txb);
+        letter-spacing: -0.3px;
+      }
+      .lt .d {
+        color: var(--ac);
+      }
+      .nls {
+        display: flex;
+        gap: 4px;
+      }
+      .nk {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--txs);
+        padding: 7px 14px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        transition: all var(--t);
+        text-decoration: none;
+      }
+      .nk:hover {
+        color: var(--ac);
+        background: var(--acd);
+      }
+      .nt {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: 1px solid var(--brd);
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 8px;
+      }
+      .nt span {
+        width: 18px;
+        height: 1.5px;
+        background: var(--txs);
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 100px 28px 80px;
+        max-width: var(--mw);
+        margin: 0 auto;
+        gap: 56px;
+      }
+      .hc {
+        flex: 1;
+        min-width: 0;
+      }
+      .hs {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--gr);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        padding: 6px 14px;
+        background: var(--grd);
+        border: 1px solid rgba(52, 211, 153, 0.18);
+        border-radius: 20px;
+      }
+      .sd {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gr);
+        animation: pls 2s ease-in-out infinite;
+      }
+      @keyframes pls {
+        0%,
+        100% {
+          opacity: 1;
+          box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+        }
+        50% {
+          opacity: 0.7;
+          box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+        }
+      }
+      .ht {
+        font-family: var(--fd);
+        font-size: clamp(32px, 4.5vw, 52px);
+        font-weight: 800;
+        color: var(--txb);
+        line-height: 1.1;
+        letter-spacing: -1.8px;
+        margin-bottom: 24px;
+      }
+      .ht .ac {
+        color: var(--ac);
+      }
+      .hsb {
+        font-size: 17px;
+        color: var(--txs);
+        line-height: 1.75;
+        max-width: 540px;
+        margin-bottom: 40px;
+      }
+      .hm {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 40px;
+      }
+      .mt {
+        padding: 16px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        position: relative;
+        overflow: hidden;
+      }
+      .mt::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), transparent);
+        opacity: 0;
+        transition: opacity var(--t);
+      }
+      .mt:hover {
+        border-color: var(--brdh);
+        transform: translateY(-2px);
+      }
+      .mt:hover::before {
+        opacity: 1;
+      }
+      .mv {
+        display: block;
+        font-family: var(--fd);
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--ac);
+        letter-spacing: -0.5px;
+        line-height: 1;
+      }
+      .ml {
+        display: block;
+        font-family: var(--fm);
+        font-size: 10px;
+        color: var(--txm);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 8px;
+        line-height: 1.4;
+      }
+      .hcta {
+        display: flex;
+        gap: 12px;
+      }
+      .btn {
+        font-family: var(--fd);
+        font-size: 14px;
+        font-weight: 600;
+        padding: 13px 28px;
+        border-radius: var(--r);
+        cursor: pointer;
+        letter-spacing: -0.2px;
+        transition: all var(--t);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: none;
+      }
+      .bp {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      .bp:hover {
+        background: var(--acl);
+        color: var(--bg);
+        box-shadow:
+          0 0 28px var(--acg),
+          0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+      .bo {
+        background: transparent;
+        color: var(--txs);
+        border: 1px solid var(--brd);
+      }
+      .bo:hover {
+        color: var(--ac);
+        border-color: var(--ac);
+        background: var(--acd);
+      }
+      .hud {
+        width: 440px;
+        flex-shrink: 0;
+        border: 1px solid var(--brd);
+        border-radius: var(--rl);
+        overflow: hidden;
+        background: var(--bg2);
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 0 40px rgba(56, 142, 255, 0.04);
+        position: relative;
+      }
+      .hud::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 20%;
+        right: 20%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--ac), transparent);
+      }
+      .hbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: var(--bgc);
+        border-bottom: 1px solid var(--brd);
+      }
+      .hdts {
+        display: flex;
+        gap: 6px;
+      }
+      .hdt {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .hdt.r {
+        background: #ff5f57;
+      }
+      .hdt.y {
+        background: #febc2e;
+      }
+      .hdt.g {
+        background: #28c840;
+      }
+      .hlb {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--txm);
+      }
+      .hbd {
+        padding: 20px;
+        font-family: var(--fm);
+        font-size: 13px;
+        line-height: 1.9;
+      }
+      .hl {
+        opacity: 0;
+        animation: hi 0.3s ease forwards;
+        animation-delay: var(--d);
+      }
+      @keyframes hi {
+        from {
+          opacity: 0;
+          transform: translateX(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hp {
+        color: var(--ac);
+        margin-right: 8px;
+      }
+      .hcc {
+        color: var(--txb);
+      }
+      .ho {
+        color: var(--txs);
+      }
+      .hk {
+        color: var(--am);
+      }
+      .hvl {
+        color: var(--tx);
+      }
+      .ha {
+        color: var(--ac);
+      }
+      .hcr {
+        color: var(--ac);
+        animation: bl 1s step-end infinite;
+      }
+      @keyframes bl {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .sc {
+        padding: 100px 28px;
+      }
+      .sa {
+        background: var(--bg2);
+      }
+      .si {
+        max-width: var(--mw);
+        margin: 0 auto;
+      }
+      .st {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ac);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .st::before {
+        content: "";
+        width: 20px;
+        height: 1px;
+        background: var(--ac);
+      }
+      .sh {
+        font-family: var(--fd);
+        font-size: clamp(28px, 3.5vw, 40px);
+        font-weight: 800;
+        color: var(--txb);
+        line-height: 1.15;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+      }
+      .sh .ac {
+        color: var(--ac);
+      }
+      .sp {
+        font-size: 17px;
+        color: var(--txs);
+        max-width: 580px;
+        line-height: 1.75;
+        margin-bottom: 48px;
+      }
+      .ib {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--acd);
+        border: 1px solid rgba(56, 142, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ib svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--ac);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .ibl {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+      }
+      .ibl svg {
+        width: 20px;
+        height: 20px;
+      }
+      .ibg {
+        background: var(--grd);
+        border-color: rgba(52, 211, 153, 0.12);
+      }
+      .ibg svg {
+        stroke: var(--gr);
+      }
+      .iba {
+        background: var(--amd);
+        border-color: rgba(251, 191, 36, 0.12);
+      }
+      .iba svg {
+        stroke: var(--am);
+      }
+      .ag {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 56px;
+        margin-top: 40px;
+      }
+      .atx p {
+        margin-bottom: 18px;
+        font-size: 16px;
+        color: var(--tx);
+        line-height: 1.8;
+      }
+      .acs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .ac2 {
+        padding: 20px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        position: relative;
+        overflow: hidden;
+      }
+      .ac2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), transparent);
+        opacity: 0;
+        transition: opacity var(--t);
+      }
+      .ac2:hover {
+        border-color: var(--brdh);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+      .ac2:hover::after {
+        opacity: 1;
+      }
+      .ac2 .ib {
+        margin-bottom: 14px;
+      }
+      .ac2 h3 {
+        font-family: var(--fd);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--txb);
+        margin-bottom: 6px;
+      }
+      .ac2 p {
+        font-size: 12.5px;
+        color: var(--txs);
+        line-height: 1.6;
+      }
+      .ig {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .ic {
+        padding: 28px 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        position: relative;
+      }
+      .ic::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: var(--r);
+        background: linear-gradient(
+          135deg,
+          rgba(56, 142, 255, 0.12),
+          transparent 40%
+        );
+        opacity: 0;
+        transition: opacity var(--t);
+        z-index: -1;
+      }
+      .ic:hover {
+        border-color: rgba(56, 142, 255, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+      }
+      .ic:hover::before {
+        opacity: 1;
+      }
+      .icv {
+        font-family: var(--fd);
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--ac);
+        letter-spacing: -1px;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      .ict {
+        font-family: var(--fd);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--txb);
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .icd {
+        font-size: 13px;
+        color: var(--txs);
+        line-height: 1.6;
+      }
+      .tl {
+        margin-top: 48px;
+        padding-left: 36px;
+        position: relative;
+      }
+      .tl::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 12px;
+        bottom: 12px;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          var(--ac),
+          var(--brd) 30%,
+          var(--brd) 70%,
+          transparent
+        );
+      }
+      .ti {
+        position: relative;
+        margin-bottom: 40px;
+      }
+      .ti:last-child {
+        margin-bottom: 0;
+      }
+      .tm {
+        position: absolute;
+        left: -36px;
+        top: 12px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 2px solid var(--ac);
+        background: var(--bg);
+        z-index: 1;
+      }
+      .ti:first-child .tm {
+        background: var(--ac);
+        box-shadow: 0 0 12px var(--acg);
+      }
+      .tc {
+        padding: 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: border-color var(--t);
+      }
+      .tc:hover {
+        border-color: var(--brdh);
+      }
+      .th {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tr {
+        font-family: var(--fd);
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--txb);
+        letter-spacing: -0.3px;
+      }
+      .tco {
+        font-size: 14px;
+        color: var(--ac);
+        margin-top: 3px;
+      }
+      .td {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--txm);
+        padding: 5px 12px;
+        background: var(--bg2);
+        border-radius: 20px;
+        border: 1px solid var(--brd);
+        white-space: nowrap;
+      }
+      .tgs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .tg {
+        font-family: var(--fm);
+        font-size: 10px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        background: var(--acd);
+        color: var(--ac);
+        border: 1px solid rgba(56, 142, 255, 0.1);
+        letter-spacing: 0.3px;
+      }
+      .tb {
+        list-style: none;
+        padding: 0;
+      }
+      .tb li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: var(--tx);
+        line-height: 1.65;
+      }
+      .tb li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ac);
+        opacity: 0.5;
+      }
+      .mg {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        margin-top: 40px;
+      }
+      .mtx p {
+        font-size: 16px;
+        color: var(--tx);
+        line-height: 1.8;
+        margin-bottom: 28px;
+      }
+      .mr {
+        padding: 18px 20px;
+        border-left: 2px solid var(--ac);
+        background: var(--bgc);
+        border-radius: 0 var(--r) var(--r) 0;
+        margin-bottom: 12px;
+      }
+      .mr h4 {
+        font-family: var(--fd);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--txb);
+        margin-bottom: 4px;
+      }
+      .mr p {
+        font-size: 13px;
+        color: var(--txs);
+        line-height: 1.6;
+        margin-bottom: 0;
+      }
+      .awl {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ac);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .aw {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: var(--tx);
+        transition: border-color var(--t);
+      }
+      .aw:hover {
+        border-color: var(--brdh);
+      }
+      .bf {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+      }
+      .bfb {
+        font-family: var(--fm);
+        font-size: 11px;
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--brd);
+        background: transparent;
+        color: var(--txs);
+        cursor: pointer;
+        transition: all var(--t);
+        letter-spacing: 0.5px;
+      }
+      .bfb:hover {
+        border-color: var(--brdh);
+        color: var(--txb);
+      }
+      .bfb.act {
+        background: var(--acd);
+        border-color: var(--ac);
+        color: var(--ac);
+      }
+      .bg2 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .bc {
+        padding: 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        display: block;
+        color: inherit;
+      }
+      .bc::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--cc, var(--ac));
+        opacity: 0;
+        transition: opacity var(--t);
+      }
+      .bc:hover {
+        border-color: var(--brdh);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+        color: inherit;
+      }
+      .bc:hover::before {
+        opacity: 1;
+      }
+      .bcc {
+        font-family: var(--fm);
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--cc, var(--ac));
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .bcd {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--cc, var(--ac));
+      }
+      .bc h3 {
+        font-family: var(--fd);
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--txb);
+        line-height: 1.4;
+        margin-bottom: 10px;
+        letter-spacing: -0.2px;
+      }
+      .bc p {
+        font-size: 13px;
+        color: var(--txs);
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+      .bcm {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--txm);
+      }
+      .bca {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        opacity: 0;
+        transition: opacity var(--t);
+        font-family: var(--fm);
+        font-size: 12px;
+        color: var(--ac);
+      }
+      .bc:hover .bca {
+        opacity: 1;
+      }
+      .cg {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 40px;
+      }
+      .cc {
+        padding: 24px 20px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+      }
+      .cc:hover {
+        border-color: var(--brdh);
+      }
+      .ccf {
+        border-color: var(--ac);
+        background: linear-gradient(
+          135deg,
+          rgba(56, 142, 255, 0.06),
+          transparent
+        );
+      }
+      .cc .ibl {
+        margin-bottom: 14px;
+      }
+      .cc h3 {
+        font-family: var(--fd);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--txb);
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+      .cci {
+        font-size: 12px;
+        color: var(--txs);
+      }
+      .ce {
+        margin-top: 24px;
+        padding: 20px 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+      }
+      .ce h3 {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ac);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+      }
+      .ce p {
+        font-size: 14px;
+      }
+      .teg {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 40px;
+      }
+      .te {
+        padding: 28px 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        position: relative;
+      }
+      .te::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), transparent);
+      }
+      .tew {
+        grid-column: 1/-1;
+      }
+      .te p {
+        font-size: 14px;
+        color: var(--tx);
+        line-height: 1.75;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+      .tea {
+        font-family: var(--fm);
+        font-size: 12px;
+        color: var(--txs);
+      }
+      .coc {
+        text-align: center;
+      }
+      .coc .sp {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .coc .st {
+        justify-content: center;
+      }
+      .coc .st::before {
+        display: none;
+      }
+      .cls {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .cl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 32px 40px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        text-decoration: none;
+        min-width: 200px;
+      }
+      .cl:hover {
+        border-color: var(--ac);
+        transform: translateY(-3px);
+        box-shadow:
+          0 12px 36px rgba(0, 0, 0, 0.3),
+          0 0 20px var(--acg);
+      }
+      .cl .ibl {
+        margin-bottom: 14px;
+      }
+      .cll {
+        font-family: var(--fd);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--txb);
+        margin-bottom: 4px;
+      }
+      .clv {
+        font-size: 12px;
+        color: var(--txs);
+      }
+      .ft {
+        border-top: 1px solid var(--brd);
+        padding: 28px;
+      }
+      .fti {
+        max-width: var(--mw);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .ftb {
+        font-family: var(--fd);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--txs);
+      }
+      .ftb .d {
+        color: var(--ac);
+        opacity: 0.5;
+      }
+      .ftc {
+        font-size: 12px;
+        color: var(--txm);
+      }
+      .rv {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .rv.vi {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (max-width: 960px) {
+        .hero {
+          flex-direction: column;
+          min-height: auto;
+          padding-top: 100px;
+        }
+        .hud {
+          width: 100%;
+        }
+        .hm {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .ag,
+        .mg {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .ig,
+        .bg2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cg {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .teg {
+          grid-template-columns: 1fr;
+        }
+        .tew {
+          grid-column: 1;
+        }
+      }
+      @media (max-width: 640px) {
+        .nls {
+          display: none;
+          position: absolute;
+          top: 64px;
+          left: 0;
+          right: 0;
+          background: var(--bg);
+          border-bottom: 1px solid var(--brd);
+          flex-direction: column;
+          padding: 12px;
+        }
+        .nls.act2 {
+          display: flex;
+        }
+        .nt {
+          display: flex;
+        }
+        .hm {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .mv {
+          font-size: 22px;
+        }
+        .hcta {
+          flex-direction: column;
+        }
+        .ig,
+        .bg2,
+        .cg,
+        .acs {
+          grid-template-columns: 1fr;
+        }
+        .sc {
+          padding: 64px 20px;
+        }
+        .th {
+          flex-direction: column;
+        }
+        .cls {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gbg"></div>
+    <svg class="svgd" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="sw" viewBox="0 0 24 24">
+        <path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
+        <path d="M13 19l6-6" />
+        <path d="M16 16l4 4" />
+        <path d="M19 21l2-2" />
+      </symbol>
+      <symbol id="sh" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </symbol>
+      <symbol id="wr" viewBox="0 0 24 24">
+        <path
+          d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+        />
+      </symbol>
+      <symbol id="cl" viewBox="0 0 24 24">
+        <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" />
+      </symbol>
+      <symbol id="tp" viewBox="0 0 24 24">
+        <path d="M6 9H4.5a2.5 2.5 0 010-5H6" />
+        <path d="M18 9h1.5a2.5 2.5 0 000-5H18" />
+        <path d="M4 22h16" />
+        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+        <path d="M18 2H6v7a6 6 0 0012 0V2z" />
+      </symbol>
+      <symbol id="aw2" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="7" />
+        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+      </symbol>
+      <symbol id="ml" viewBox="0 0 24 24">
+        <path
+          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+        />
+        <polyline points="22,6 12,13 2,6" />
+      </symbol>
+      <symbol id="li" viewBox="0 0 24 24">
+        <path
+          d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"
+        />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </symbol>
+      <symbol id="gh" viewBox="0 0 24 24">
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+        />
+      </symbol>
+      <symbol id="lk" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0110 0v4" />
+      </symbol>
+      <symbol id="gb" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path
+          d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
+        />
+      </symbol>
+      <symbol id="bc2" viewBox="0 0 24 24">
+        <line x1="12" y1="20" x2="12" y2="10" />
+        <line x1="18" y1="20" x2="18" y2="4" />
+        <line x1="6" y1="20" x2="6" y2="16" />
+      </symbol>
+    </svg>
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <nav class="nav">
+      <div class="ni">
+        <a href="#" class="nl"
+          ><span class="lm">EM</span
+          ><span class="lt">muema<span class="d">.sec</span></span></a
+        >
+        <div class="nls" id="nls">
+          <a href="#about" class="nk">About</a
+          ><a href="#impact" class="nk">Impact</a
+          ><a href="#experience" class="nk">Experience</a
+          ><a href="#blog" class="nk">Blog</a
+          ><a href="#certs" class="nk">Certs</a
+          ><a href="#contact" class="nk">Contact</a>
+        </div>
+        <button class="nt" id="nt" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
 
-  <title>Infosec Narrator</title>
-  <meta content="" name="description">
-  <meta
-    content="infosecnarrator, infosec narrator, cybersecurity , infosec, devsecops, security engineer, incident response, cyber security strategy"
-    name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-
-</head>
-
-<body>
-
-  <!-- ======= Mobile nav toggle button ======= -->
-  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
-
-  <!-- ======= Header ======= -->
-  <header id="header">
-    <div class="d-flex flex-column">
-
-      <div class="profile">
-        <img src="assets/img/avatar.jfif" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Edwin Muema</a></h1>
-        <div class="social-links mt-3 text-center">
-          <a href="https://www.linkedin.com/in/muema-edwin/" target="_blank" class="linkedin"><i
-              class="bx bxl-linkedin"></i></a>
-          <a href="https://twitter.com/infosecnarrator" target="_blank" class="twitter"><i
-              class="bx bxl-twitter"></i></a>
-          <a href="https://hackmd.io/@codeAssassin" target="_blank" class="hackmd"><i class="bx bx-ghost"></i></a>
+    <header class="hero" id="hero">
+      <div class="hc">
+        <div class="hs"><span class="sd"></span>Open to opportunities</div>
+        <h1 class="ht">
+          Securing cloud-native apps
+          <span class="ac">from code to production</span>
+        </h1>
+        <p class="hsb">
+          I'm Edwin Muema — a Cloud Security Engineer with 6+ years across
+          Offensive and Defensive security. I embed security into the SDLC so
+          engineering teams ship secure code by default.
+        </p>
+        <div class="hm">
+          <div class="mt">
+            <span class="mv">3,000+</span
+            ><span class="ml">Attacks Blocked Weekly</span>
+          </div>
+          <div class="mt">
+            <span class="mv">99%</span><span class="ml">Vuln Remediation</span>
+          </div>
+          <div class="mt">
+            <span class="mv">95%</span
+            ><span class="ml">Faster Incident Response</span>
+          </div>
+          <div class="mt">
+            <span class="mv">$30K</span><span class="ml">Annual Savings</span>
+          </div>
+        </div>
+        <div class="hcta">
+          <a href="#contact" class="btn bp"
+            ><svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <use href="#ml" /></svg
+            >Get in Touch</a
+          ><a href="#experience" class="btn bo">View Experience</a>
         </div>
       </div>
-
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>My Story</span></a></li>
-          <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>CV</span></a></li>
-          <li><a href="#kamilimu" class="nav-link scrollto"><i class="bx bx-star"></i> <span>KamiLimu</span></a></li>
-          <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-          <li><a href="#testimonials" class="nav-link scrollto"><i class="bx bx-message-rounded-dots"></i>
-              <span>Testimonials</span></a></li>
-          <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-          <li><a href="https://hackmd.io/@codeAssassin" target="_blank" class="nav-link scrollto"><i
-                class="bx bx-book-content"></i> <span>Technical Blog</span></a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="hero-container" data-aos="fade-in">
-      <h1>Edwin Muema</h1>
-      <p>I'm a <span class="typed"
-          data-typed-items="Cybersecurity Engineer, DevSecOps Engineer, Security Analyst, Cyber Incident Responder"></span>
-      </p>
-    </div>
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>My Cyber Origin Story</h2>
+      <div class="hud">
+        <div class="hbar">
+          <div class="hdts">
+            <span class="hdt r"></span><span class="hdt y"></span
+            ><span class="hdt g"></span>
+          </div>
+          <span class="hlb">muema@cloud-sec:~</span>
         </div>
-
-        <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/faceshot.jpg" class="img-fluid" style="width: auto;height: auto;" alt="">
+        <div class="hbd">
+          <div class="hl" style="--d: 0.2s">
+            <span class="hp">$</span><span class="hcc"> whoami</span>
           </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <!--   <h3>Cybersecurity Engineer</h3> -->
-            <!--      <p class="fst-italic">
-              <strong>
-                Upcoming security leader with both Defensive and Offensive Cybersecurity experience
-                accrued over five + years. Proven track record of holistically enhancing the cybersecurity
-                resilience of clients through factoring in their business and security contexts in driving
-                outcomes that impact the entire organization. An adept mentor, purple teamer, and
-                DevSecOps Engineer interested in elevating your cybersecurity posture.
-              </strong>
-            </p> -->
-            <div class="row">
-              <div class="col-lg-12">
-                <ul>
-                  <li> <strong> I got started in CyberSecurity through reading CyberSecurity Reports about the state of
-                      Cyber Security in Africa published by Serianu - a PanAfrican Cybersecurity firm. </strong></li>
-                  <li> <strong> I then transitioned into working for Serianu as a researcher and security awareness
-                      trainer to produce reports on Digital Privacy as well as train pre-university and university
-                      students on Cyber Security.</strong></li>
-                  <li> <strong>I sought out and gained experience as a Penetration Tester and SOC Analyst then
-                      transitioned into Consulting for PwC to help build out their Cybersecurity capabilities and
-                      enhance the cybersecurity resilience of their clients. </strong></li>
-                  <li> <strong> I then transitioned to lead Security Efforts at an organization in the Financial
-                      Services Sector.</strong></li>
-                  <li> <strong> I am open to opportunities to make meaningful contributions to the world through
-                      cybersecurity.</strong></li>
-                </ul>
-              </div>
-            </div>
+          <div class="hl" style="--d: 0.6s">
+            <span class="ho">Cloud Security Engineer | AppSec Lead</span>
           </div>
-
+          <div class="hl" style="--d: 1s">
+            <span class="hp">$</span><span class="hcc"> cat skills.yml</span>
+          </div>
+          <div class="hl" style="--d: 1.4s">
+            <span class="hk">Offensive:</span
+            ><span class="hvl"> VAPT, Red Team, Social Engineering</span>
+          </div>
+          <div class="hl" style="--d: 1.7s">
+            <span class="hk">Defensive:</span
+            ><span class="hvl"> DFIR, WAF, SIEM, EDR/XDR, SOC Ops</span>
+          </div>
+          <div class="hl" style="--d: 2s">
+            <span class="hk">DevSecOps:</span
+            ><span class="hvl"> SAST, DAST, SCA, CI/CD Security</span>
+          </div>
+          <div class="hl" style="--d: 2.3s">
+            <span class="hk">Cloud:</span
+            ><span class="hvl"> AWS, GCP, Heroku, Terraform</span>
+          </div>
+          <div class="hl" style="--d: 2.7s">
+            <span class="hp">$</span><span class="hcc"> cat mission.md</span>
+          </div>
+          <div class="hl" style="--d: 3.1s">
+            <span class="ha"
+              >"Shrink the attack surface — systematically."</span
+            >
+          </div>
+          <div class="hl" style="--d: 3.5s">
+            <span class="hp">$</span><span class="hcr">_</span>
+          </div>
         </div>
-    </section><!-- End About Section -->
-
-    <!-- ======= Facts Section ======= -->
-    <section id="facts" class="facts">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Let's talk numbers</h2>
-          <p>Over the course of my career I've been fortunate to make an impact through:</p>
-        </div>
-
-        <div class="row no-gutters">
-
-          <div class="col-lg-4 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up">
-            <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="20" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Happy & Satisfied</strong> Clients</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="count-box">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="40" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Successfully </strong> executed Projects</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="count-box">
-              <i class="bi bi-clock"></i>
-              <span data-purecounter-start="0" data-purecounter-end="500" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Hours</strong> of mentorship</p>
-            </div>
-          </div>
-
-        </div>
-
       </div>
-    </section><!-- End Facts Section -->
+    </header>
 
-    <!-- ======= Skills Section ======= -->
-    <section id="skills" class="skills section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Knowledge Areas</h2>
-          <p>I've had the pleasure of spending my hours in the following domains:</p>
-        </div>
-
-        <div class="row skills-content">
-
-          <div class="col-lg-6" data-aos="fade-up">
-
-            <div class="progress">
-              <span class="skill">Pentesting <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Vulnerability Assessments <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">CyberSecurity Reviews <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill"> Cyber Risk, Governance and Compliance <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
+    <section class="sc" id="about">
+      <div class="si">
+        <div class="st">About</div>
+        <h2 class="sh">
+          The Security Engineer Who<br /><span class="ac"
+            >Thinks Like a Threat Actor</span
+          >
+        </h2>
+        <div class="ag">
+          <div class="atx">
+            <p>
+              My career started in the offensive trenches — penetration testing,
+              vulnerability research, and digital forensics. That attacker's
+              mindset now powers everything I build on the defensive side.
+            </p>
+            <p>
+              At <strong>Oyster HR</strong>, I lead application security for a
+              Globally Distributed Engineering Team. I've implemented WAF
+              protections blocking thousands of attacks weekly, driven
+              vulnerability remediation to near-zero across the codebase, and
+              built DevSecOps pipelines that make security invisible to
+              developers.
+            </p>
+            <p>
+              Before that, I secured banking infrastructure at
+              <strong>SBM Bank</strong>, led incident response on multi-million
+              dollar cases at <strong>PwC</strong>, and conducted penetration
+              tests across Financial services, Telecoms, and Energy sectors.
+            </p>
+            <p>
+              I hold the
+              <strong>Google Cloud Professional Security Engineer</strong>
+              certification and am passionate about mentoring the next
+              generation of security professionals through
+              <strong>KamiLimu</strong>, where I've directed technical curricula
+              for 34+ mentees.
+            </p>
           </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="progress">
-              <span class="skill">Incident Response <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
+          <div class="acs">
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#sw" /></svg>
               </div>
+              <h3>Offensive Roots</h3>
+              <p>VAPT, Red teaming, Social Engineering</p>
             </div>
-
-            <div class="progress">
-              <span class="skill">Malware Analysis <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#sh" /></svg>
               </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">SOC Operations <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Digitial Forensics <i class="val"></i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Skills Section -->
-
-    <!-- ======= Resume Section ======= -->
-    <section id="resume" class="resume">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>CV</h2>
-          <p></p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up">
-            <h3 class="resume-title">Summary</h3>
-            <div class="resume-item pb-0">
-              <h4>Edwin Muema</h4>
-              <p><em>
-                  <ul>
-                    <li> Upcoming security leader with both Defensive and Offensive Cybersecurity experience
-                      accrued over 5+ years.</li>
-                    <li> Served as the lead Cyber Security consultant for the PwC Kenya Forensics team.</li>
-                    <li> Proven track record of holistically enhancing the cybersecurity
-                      resilience of clients through factoring in their business and security contexts in driving
-                      outcomes that impact the entire organization.</li>
-                    <li> An adept mentor focused on empowering university students in cyber security.
-                    </li>
-                    <li> Exceptional Purple Teamer with excellent written and verbal communication skills interested in
-                      elevating
-                      the cybersecurity resilience of your organization. </li>
-                  </ul>
-                </em></p>
-
-            </div>
-
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>Professional Cloud Security Engineer </h4>
-              <h5>May 2023 - September 2023</h5>
-              <p><em>Google Cloud</em></p>
-              <p>Design and implement secure workloads and infrastructure. </p>
-              <p>Develop, and manage a secure infrastructure.</p>
-              <p>Identity and access management.</p>
-              <p>Data protection, configuring network security defenses, collecting and analyzing Google Cloud logs.</p>
-            </div>
-            <div class="resume-item">
-              <h4>BSc Electrical &amp; Telecommunications Engineering </h4>
-              <h5>September 2015 - December 2020</h5>
-              <p><em>Multimedia University of Kenya, Nairobi, KE</em></p>
-              <p>Successfully graduated with a Second Class Upper Hons in Electrical &amp; Telecommunications
-                Engineering </p>
-            </div>
-            <div class="resume-item">
-              <h4>Continuing Cyber Security Education in Offensive and Defensive CyberSecurity</h4>
-              <h5>Jan 2022 - Present</h5>
-              <p><em>TryHackMe</em></p>
-              <p>Dedication to continuous learning has seen me rise to the top 2% of try hack me members.
-              </p>
-            </div>
-            <div class="resume-item">
-              <h4>Udacity Cloud DevOps Nanodegree</h4>
-              <h5>May 2022 - September 2022</h5>
-              <p><em>Africa Leadership University &amp; Udacity</em></p>
+              <h3>Defensive Depth</h3>
               <p>
-                Gained hands-on AWS and Kubernetes experience from the Cloud Devops Engineer Nanodegree covering:<br>
-              <ul>
-                <li>Cloud fundamentals: Security, Containerization, and AWS Management </li>
-                <li>Deploying Infrastructure as Code (IAC): AWS CloudFormation, Infrastructure Diagrams, Networking
-                  Infrastructure, Servers and Security Groups, Storage and Databases.</li>
-                <li>CI/CD pipelines, Logging and Monitoring : Building Continuous Integration Pipelines with Jenkins and
-                  CircleCI, Enabling Continuous Delivery with Deployment Pipelines using Ansible, Monitoring and Logging
-                  AWS services using Prometheus, AWS CloudWatch, AWS CloudTrail.</li>
-                <li>Microservices at scale using Kubernetes: deploying event-driven microservices using AWS Lambda and
-                  Cloud9, deploying applications on Docker, Containerization of existing applications, Container
-                  Orchestration with Kubernetes, Operationalizing Microservices while implementing fault-tolerance and
-                  load testing to enhance robustness of applications.</li>
-              </ul>
+                Digital Forensics with EnCase, FTK, Cellebrite; SOC operations,
+                SIEM engineering, Endpoint protection (1,500+ endpoints),
+                Network security
               </p>
             </div>
-
-
-
-            <h3 class="resume-title">Projects</h3>
-            <div class="resume-item">
-              <ul>
-                <li>
-                  WAF built on AWS WAF for SMEs.
-                </li>
-                <li>
-                  Deploying high-availability web apps using CloudFormation on AWS infrastructure.
-                </li>
-                <li>
-                  Auto deploying apps using infrastructure as code with inbuilt rollover functionality to ensure
-                  zero downtime.
-                </li>
-                <li>
-                  Operationalizing a Machine Learning Microservice API using docker and kubernetes.
-                </li>
-                <li>
-                  Deploying apps on kubernetes running on GKE.
-                </li>
-                <li>
-                  Deploying apps using terraform on Google Infrastructure.
-                </li>
-                <li>
-                  Incident response Playbooks for environments running on Microsoft Azure.
-                </li>
-                <li>
-                  Vulnerability Analysis on AWS, Azure and GCP for corporates focusing on misconfigurations.
-                </li>
-                <li>
-                  Static Application Security Testing using Snyk.
-                </li>
-              </ul>
-            </div>
-
-            <h3 class="resume-title">Certifications</h3>
-            <div class="resume-item">
-              <ul>
-                <li>
-                  <h4>Professional Cloud Security Engineer</h4>
-                  <h5> - Google Cloud Sep 2023</h5>
-                </li>
-                <li>
-                  <h4>Practical Windows Forensics</h4>
-                  <h5> - TCM Security Nov 2022</h5>
-                </li>
-                <li>
-                  <h4>Microsoft Certified: Security, Compliance, and Identity Fundamentals </h4>
-                  <h5> - Microsoft Apr 2022</h5>
-                </li>
-                <li>
-                  <h4>Web Fundamentals Learning Path Certificate of Completion</h4>
-                  <h5>- TryHackMe Apr 2022 </h5>
-                </li>
-                <li>
-                  <h4>Fortinet Network Security Expert Level 3: Certified Associate</h4>
-                  <h5>- Fortinet Jan 2021 </h5>
-                </li>
-                <li>
-                  <h4>ICSI | CNSS Certified Network Security Specialist </h4>
-                  <h5>- International Cybersecurity Institute May 2020</h5>
-                </li>
-                <li>
-                  <h4>Huawei Certified ICT Associate (HCIA) Routing and Switching</h4>
-                  <h5> - Huawei Apr 2020 </h5>
-                </li>
-                <li>
-                  <h4>CompTIA_Security+ </h4>
-                  <h5> - Cybrary Jul 2019 </h5>
-                </li>
-                <li>
-                  <h4>Fundamental Vulnerability Management </h4>
-                  <h5> - Cybrary Jul 2019 </h5>
-                </li>
-                <li>
-                  <h4>Security Assessment and Testing </h4>
-                  <h5> - Cybrary Jul 2019 </h5>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Professional Experience</h3>
-            <div class="resume-item">
-              <h4>Lead Security Engineer</h4>
-              <h5>Nov 2022 - Present</h5>
-              <p><em> Financial Services Organization</em></p>
-              <ul>
-                <li>Responsible for all cybersecurity operations including monitoring technical
-                  infrastructure and assets for cyberthreat indicators, tracking emerging and realized
-                  threats, and managing the Information Security Risk posture of the bank reporting to
-                  the Chief Risk Officer.</li>
-                <li>Directed the design and implementation of VAPT activities on technology layers
-                  covering containers, 5 web apps, 4 mobile apps, and 5 databases evaluating the
-                  criticality of vulnerabilities and prioritizing on the most suitable remediation.</li>
-                <li>Provided technical support to the system administrators and owners of 15 systems in
-                  analyzing, understanding, and remediating the reported vulnerability findings </li>
-                <li>Coordinated hardening of Windows, and Linux operating systems for 20 missioncritical servers
-                  according to CIS standards.
-                </li>
-                <li>Developed, maintained, and improved cyber security policies, secure coding
-                  practices, procedures, and guidelines in line with ISO 27001, NIST CSF, SWIFT CSP,
-                  PCI-DSS, CIS Top 20 CSC, OWASP, and MITRE ATT&CK as part of industry best
-                  practice.
-                </li>
-                <li>Collaborated with Dev and DevOps teams to implement application and system
-                  security improvements for 5 major systems in the bank.</li>
-                <li>Collaborated with project and product management teams to provide technical
-                  security support to all technology projects in the bank including the go-live of 5
-                  banking applications, migration from Gsuite to Office 365, and implementation of a
-                  Data Center Firewall</li>
-                <li>Led Security operations involving anticipating, preventing, detecting, and responding
-                  to cyber security incidents for over 700+ systems leveraging on my purple team
-                  experience. Reduced the rate of false positives by 32% through fine-tuning detection
-                  rules.
-                </li>
-                <li>Conducted Security Awareness training for 300 members of staff to improve the
-                  bank's cybersecurity posture. Conducted Specialized training for 30 IT staff on secure
-                  coding practices and DevSecOps principles in order to encourage a shift left of
-                  Security in the organization.
-                </li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>CyberSecurity Consultant</h4>
-              <h5>July 2021 - Nov 2022</h5>
-              <p><em>PwC, Nairobi, KE </em></p>
-              <ul>
-                <li>Led incident response for a leading East African microfinance institution to address the loss of
-                  300,000 USD. Resulted in attribution to suspected parties.
-                  <ul>
-                    <li>Conducted forensic analysis of their core and mobile banking systems. </li>
-                    <li>Reviewed infrastructure logs.</li>
-                    <li>Imaged RAM and performed malware analysis.</li>
-                    <li>Created a timeline of events supported by analysis of forensic images of the suspects' devices.
-                    </li>
-                  </ul>
-                </li>
-                <li>Led incident response for a Development Agency to address the loss of 70,000 Euros through social
-                  engineering. Resulted in unveiling the pseudo identity of the attacker.
-                  <ul>
-                    <li>Conducted Mail Header Analysis. </li>
-                    <li> Created tutorials for Mail Header Analysis Training for use by the Forensics Team. </li>
-                    <li>Reviewed Security artifacts to establish potential attack vectors.</li>
-                  </ul>
-                </li>
-                <li>Led the technical cyber review of a leading African Bank to ensure compliance with global privacy
-                  and security regulations. Resulted in reduced financial exposure by 10% and avoidance of Regulator
-                  fines. </li>
-                <ul>
-                  <li>Coordinated efforts with the security incident response team and infrastructure teams.</li>
-                  <li> Identified and helped mitigate security issues, misconfigurations, and vulnerabilities in the
-                    orchestration of their core banking and mobile banking systems.</li>
-                </ul>
-                <li>Conducted systems security review for a leading African microfinance bank covering their core
-                  banking and mobile banking systems. Resulted in improved cyber security resilience, visibility into
-                  their network and increased operational efficiency.
-                  <ul>
-                    <li>Served as a security counterpart for the infrastructure department. </li>
-                    <li>Championed for pragmatic application of security tools to the business case to reap the highest
-                      ROI from existing security tools.</li>
-                    <li>Championed for the adoption of Sound cloud security practices such as the use of Identity
-                      Providers with pass-through authentication capabilities.</li>
-                    <li>Advised on tuning of detection rules for their Web Application Firewall.</li>
-                  </ul>
-                </li>
-                <li>Collaborated on a Forensic Investigation for an organization in the East African Energy Sector.
-                  Resulted in replacement of culpable parties with more suitable candidates in the organization's
-                  management and contributed to uncovering a 7 Million USD irregularity.
-                  <ul>
-                    <li> Analyzed and correlated data from imaged devices using Intella and Encase.</li>
-                    <li>Established timelines that were used to ascertain the involvement of suspects.</li>
-                  </ul>
-                </li>
-                <li>Created and implemented work plans for 10 cyber security reviews, digital forensics and incident
-                  response engagements. </li>
-                <li>Enlightened stakeholders on how to get a higher ROI on existing security tools by recommending
-                  updates to security measures, and the type of security training to invest in.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Penetration Tester and Security Operations Center (SOC) Analyst</h4>
-              <h5>Oct 2020 - June 2021</h5>
-              <p><em>Visibility Technology Services, Nairobi, KE</em></p>
-              <ul>
-                <li>Contributed to Scanning infrastructure for vulnerabilities regularly as part of taking ownership for
-                  vulnerability management and patching policies.</li>
-                <li>Identified and helped mitigate security issues, misconfigurations and vulnerabilities for a Managed
-                  Services provider in the Telecommunications sector through Vulnerability Assessments and Penetration
-                  Tests. Resulted in enhanced cyber security resilience.</li>
-                <li>Conducted Social Engineering campaigns for a leading East African SACCO as part of a penetration
-                  test. Resulted in increased security awareness. </li>
-                <li>Identified and ensured availability of log data sources. Analyzed logs using Splunk, ELK, and
-                  FortiSIEM for security analytics and identification of attacker tactics, techniques and procedures
-                  inline with the unified kill chain which combines Lockheed Martin's cyber kill chain and the MITRE
-                  ATT&CK framework.</li>
-                <li>Managed Linux systems for Security Operations. Contributed to Deploying and managing Active
-                  Directory across the entire organization and hardening Operating Systems. </li>
-                <li>Served as one of 4 SOC analysts in the Security Incident Response Team on-call rotation. Contributed
-                  to the creation of runbooks for SOC operations.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Cyber Security Trainer & Researcher</h4>
-              <h5>Sep 2019 - Apr 2020</h5>
-              <p><em>Serianu Africa Cyber Immersion Center(ACIC), Nairobi, KE</em></p>
-              <ul>
-                <li>Researched on Data Privacy and Cybersecurity in Ethiopia and Botswana which resulted in publishing
-                  of the Serianu Africa 2020 Cybersecurity Report. </li>
-                <li> Coordinated a team of 8 Multimedia University Computer Emergency Response Team (CERT) members for
-                  two months to conduct research covering Data Protection in five countries in Africa for Serianu. </li>
-                <li> Trained 100+ High school students on ACIC's cybersecurity curriculum over a period of three months
-                  which resulted in increased interest in pursuing information security as a career path.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Resume Section -->
-
-    <!-- ======= KamiLimu Section ======= -->
-    <section id="kamilimu" class="resume">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>KamiLimu Experience</h2>
-          <p><a href="https://www.kamilimu.org/" target="_blank">KamiLimu</a> is a structured multi-award winning
-            mentorship program that upskills tech students in order to foster their global competitiveness.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up">
-            <h3 class="resume-title">Overview</h3>
-            <div class="resume-item pb-0">
-              <h4>Summarily:</h4>
-              <p><em>
-                  <ul>
-                    <li> I was one of 36 cohort 5.0 mentees - a cohort which had a 20% acceptance rate. </li>
-                    <li> I emerged as the cohort 6.0 KamiLimu Fellow through winning the Scholarship Competition</li>
-                    <li> I transitioned into the Director of ICT Tracks in light of my contributions to the program
-                      during my time as the KamiLimu fellow.</li>
-                  </ul>
-                </em></p>
-
-            </div>
-
-            <h3 class="resume-title"> Management Experience</h3>
-            <div class="resume-item">
-              <h4>Director ICT Tracks</h4>
-              <h5>June 2022- June 2023</h5>
-              <p>As part of the management committee I contributed to structuring the ICT tracks and ensuring the smooth
-                running of ICT upskilling initiatives for cohort 7 mentees.</p>
-            </div>
-            <div class="resume-item">
-              <h4> KamiLimu Fellow</h4>
-              <h5>June 2021 - June 2022</h5>
-              <p>As part of the management committee I contributed to nurturing the skills and changing the lives of 34
-                mentees for a duration of 8 months.</p>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <h3 class="resume-title">Awards Won</h3>
-            <div class="resume-item">
-              <h4>Global Winner EC Council Cyber Mega Challenge </h4>
-              <p> KamiLimu empowered me to Emerge as the winner of the Global Cybersecurity challenge by EC Council
-                University which led to winning a USD 6,000 scholarship. </p>
-            </div>
-            <div class="resume-item">
-              <h4>KamiLimu Fellow Cohort 6.0 </h4>
-              <p> I was chosen as the KamiLimu fellow for the sixth cohort of the Award winning mentorship program.
-                <br /> Being part of the Management Committee turned out to be absolutely life changing :)
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#wr" /></svg>
+              </div>
+              <h3>DevSecOps Builder</h3>
+              <p>
+                SAST/DAST/SCA in CI/CD, Terraform infrastructure-as-code
+                security, secrets management, shift-left in SDLC
               </p>
             </div>
-            <div class="resume-item">
-              <h4>KamiLimu 5.0 Highest Attendance Rating</h4>
-              <h5>2021</h5>
-              <p>Achieved an average attendance rating of 176% through a 15 month period. <br /> This shows my
-                dedication to show up and see things through to the end.
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#cl" /></svg>
+              </div>
+              <h3>Cloud Security</h3>
+              <p>AWS, GCP, Harness — IAM, RBAC, WAF configuration</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc sa" id="impact">
+      <div class="si">
+        <div class="st">Impact</div>
+        <h2 class="sh">
+          Security Measured in<br /><span class="ac">Business Outcomes</span>
+        </h2>
+        <p class="sp">
+          I believe security work that can't be quantified can't be improved.
+          Here's what the numbers say.
+        </p>
+        <div class="ig">
+          <div class="ic">
+            <div class="icv">3,000+</div>
+            <div class="ict">
+              Cyber attacks blocked weekly via CloudFlare WAF
+            </div>
+            <div class="icd">
+              Zero false-positive outages. Less than 10ms latency impact.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">99%</div>
+            <div class="ict">Vulnerability remediation in 3 months</div>
+            <div class="icd">
+              Eliminated all Critical, High, and Medium issues from the main app
+              codebase.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">95%</div>
+            <div class="ict">MTTR reduction for brute-force attacks</div>
+            <div class="icd">
+              Saving ~$30K annually in engineering time and incident response
+              costs.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">0.45%</div>
+            <div class="ict">Cost-to-risk ratio on Bug Bounty program</div>
+            <div class="icd">
+              Responsible disclosure program delivering exceptional ROI through
+              early remediation.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">32%</div>
+            <div class="ict">False positive reduction in SOC operations</div>
+            <div class="icd">
+              Fine-tuned SIEM detection rules to improve analyst efficiency at
+              SBM Bank.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">$7M+</div>
+            <div class="ict">Total losses addressed in incident response</div>
+            <div class="icd">
+              Led IR at PwC covering digital forensics, e-discovery, and
+              attribution across Cloud, On-Prem, and Mobile.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc" id="experience">
+      <div class="si">
+        <div class="st">Experience</div>
+        <h2 class="sh">
+          Where I've<br /><span class="ac">Made an Impact</span>
+        </h2>
+        <div class="tl">
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Senior Security Engineer | AppSec Lead</div>
+                  <div class="tco">Oyster HR</div>
+                </div>
+                <div class="td">Jan 2025 – Present</div>
+              </div>
+              <div class="tgs">
+                <span class="tg">CloudFlare WAF</span
+                ><span class="tg">Snyk</span><span class="tg">Aikido</span
+                ><span class="tg">AWS</span><span class="tg">DRATA</span
+                ><span class="tg">Terraform</span
+                ><span class="tg">Harness</span>
+              </div>
+              <ul class="tb">
+                <li>
+                  Blocked 3,000+ attacks/week via CloudFlare WAF with zero
+                  false-positive outages and &lt;10ms performance impact
+                </li>
+                <li>
+                  Led vulnerability management achieving 99% remediation in 3
+                  months — zero Critical/High/Medium issues remaining
+                </li>
+                <li>Reduced brute-force MTTR by 95%, saving ~$30K annually</li>
+                <li>
+                  Spearheaded shift-left security across the SDLC with Product
+                  Development leadership
+                </li>
+                <li>
+                  Orchestrated SAST/DAST/SCA integration into CI/CD pipelines
+                  via Snyk and Aikido
+                </li>
+                <li>
+                  Architected secure RBAC enforcing least-privilege across AWS,
+                  Heroku, Harness, and GitHub
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Senior Cyber Security Engineer</div>
+                  <div class="tco">SBM Bank (State Bank of Mauritius)</div>
+                </div>
+                <div class="td">Nov 2022 – Jan 2025</div>
+              </div>
+              <div class="tgs">
+                <span class="tg">SOC Ops</span><span class="tg">Checkpoint</span
+                ><span class="tg">F5 WAF</span
+                ><span class="tg">Portnox NAC</span
+                ><span class="tg">Trend Micro</span><span class="tg">Azure</span
+                ><span class="tg">AWS</span><span class="tg">GCP</span>
+              </div>
+              <ul class="tb">
+                <li>
+                  Led SOC operations — reduced false positive rate by 32%
+                  through detection rule fine-tuning
+                </li>
+                <li>
+                  Directed VAPT for internal and external assessments including
+                  statutory extended scope audits
+                </li>
+                <li>
+                  Managed endpoint protection for 1,500 endpoints using Trend
+                  Micro, FireEye, and Symantec
+                </li>
+                <li>
+                  Led Privileged Identity Management and MFA across on-prem and
+                  cloud (Azure, AWS, GCP)
+                </li>
+                <li>
+                  Directed network security: NAC (Portnox), perimeter firewalls
+                  (Checkpoint), WAF (F5) aligned with ZTNA
+                </li>
+                <li>
+                  Trained 500 staff on security awareness and 30 IT staff on
+                  secure coding and DevSecOps
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Senior Cyber Security Consultant</div>
+                  <div class="tco">PricewaterhouseCoopers (PwC)</div>
+                </div>
+                <div class="td">Jul 2021 – Nov 2022</div>
+              </div>
+              <div class="tgs">
+                <span class="tg">DFIR</span><span class="tg">EnCase</span
+                ><span class="tg">Cellebrite</span
+                ><span class="tg">ISO 27001</span
+                ><span class="tg">NIST CSF</span><span class="tg">PCI-DSS</span>
+              </div>
+              <ul class="tb">
+                <li>
+                  Led incident response addressing $7M+ in losses — digital
+                  forensics with EnCase, Intella, Cellebrite, FTK
+                </li>
+                <li>
+                  Conducted VAPT for 10 organizations covering web, mobile,
+                  cloud, and on-prem networks
+                </li>
+                <li>
+                  Co-developed DevSecOps strategies implementing CI/CD security
+                  automation for 3 clients
+                </li>
+                <li>
+                  Performed security assessments against ISO 27001, NIST CSF,
+                  PCI-DSS, CIS Top 20, OWASP, MITRE ATT&CK
+                </li>
+                <li>
+                  Led solution architecture reviews for security tooling to
+                  maximize ROI for 4 clients
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Penetration Tester & SOC Analyst</div>
+                  <div class="tco">Visibility Technology Services</div>
+                </div>
+                <div class="td">Oct 2020 – Jun 2021</div>
+              </div>
+              <ul class="tb">
+                <li>
+                  Conducted VAPT for 5 organizations — internal, external
+                  penetration tests, and social engineering
+                </li>
+                <li>
+                  Served as 1 of 4 SOC analysts in the Security Incident
+                  Response Team on-call rotation
+                </li>
+                <li>
+                  Analyzed logs using Splunk, ELK, and FortiSIEM within client
+                  SLAs
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Cyber Security Researcher</div>
+                  <div class="tco">Serianu Africa Cyber Immersion Center</div>
+                </div>
+                <div class="td">Sep 2019 – Apr 2020</div>
+              </div>
+              <ul class="tb">
+                <li>
+                  Researched data privacy in Ethiopia and Botswana — published
+                  in Serianu Africa 2020 Cybersecurity Report
+                </li>
+                <li>
+                  Coordinated a team of 8 researchers covering data protection
+                  across 5 African countries
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc sa" id="mentorship">
+      <div class="si">
+        <div class="st">Mentorship</div>
+        <h2 class="sh">
+          Building the Next Generation of<br /><span class="ac"
+            >Security Professionals</span
+          >
+        </h2>
+        <div class="mg">
+          <div class="mtx">
+            <p>
+              Through
+              <a href="https://www.kamilimu.org/" target="_blank">KamiLimu</a>,
+              a multi-award winning structured mentorship program, I've
+              contributed to upskilling the next generation of tech talent.
+            </p>
+            <div class="mr">
+              <h4>Director, ICT Tracks</h4>
+              <p>
+                Coordinated technical curricula covering Data Science, Cloud
+                Engineering, Software Development, and Cybersecurity for 34
+                mentees over 8 months.
               </p>
             </div>
-            <div class="resume-item">
-              <h4>KamiLimu 5.0 Winner of the Cybersecurity Track Mock Job Competition </h4>
-              <p> Emerged as the cybersecurity track winner after a 3-stage mock Job competition </p>
+            <div class="mr">
+              <h4>KamiLimu Fellow (Cohort 6.0)</h4>
+              <p>
+                Mentored 5 cybersecurity students. Their project — Sentinel
+                Master (Managed WAF for Financial Institutions on AWS) — won
+                First Place in the Innovation Competition.
+              </p>
             </div>
-            <div class="resume-item">
-              <h4>KamiLimu 5.0 Winner of the ICT Track Competition </h4>
-              <p>My team emerged as the overall winner for the ICT track competition for our brilliance showcased
-                through our cybersecurity project: "Peeling the onion, making the adversary cry!" <br />The project was
-                on using network security monitoring to improve the cybersecurity posture of organizations.</p>
+            <div class="mr">
+              <h4>Mentee (Cohort 5.0)</h4>
+              <p>
+                One of 36 selected from a 20% acceptance rate. Won the Global EC
+                Council Cyber Mega Challenge ($6,000 scholarship), plus public
+                speaking and cybersecurity track competitions.
+              </p>
             </div>
-            <div class="resume-item">
-              <h4>KamiLimu 5.0 Winner of the Public Speaking Competition </h4>
-              <p> Emerged as the winner after a 3-stage public speaking competition. </p>
+          </div>
+          <div>
+            <div class="awl">Recognition</div>
+            <div class="aw">
+              <div class="ib">
+                <svg><use href="#tp" /></svg>
+              </div>
+              <div>
+                <strong>Global Winner</strong> — EC Council Cyber Mega Challenge
+              </div>
             </div>
-            <div class="resume-item">
-              <h4>KamiLimu 5.0 Winner of the Scholarship Competition </h4>
-              <p> Emerged as the winner after a 3-stage scholarship competition. </p>
+            <div class="aw">
+              <div class="ib">
+                <svg><use href="#aw2" /></svg>
+              </div>
+              <div><strong>KamiLimu Fellow</strong> — Cohort 6.0</div>
             </div>
-
-
+            <div class="aw">
+              <div class="ib ibg">
+                <svg><use href="#aw2" /></svg>
+              </div>
+              <div><strong>Winner</strong> — Public Speaking Competition</div>
+            </div>
+            <div class="aw">
+              <div class="ib iba">
+                <svg><use href="#aw2" /></svg>
+              </div>
+              <div>
+                <strong>Winner</strong> — Cybersecurity Track Mock Job
+                Competition
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-    </section><!-- End Resume Section -->
+    </section>
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Services</h2>
-          <p>I'd be thrilled to help you out with any of the following:</p>
+    <section class="sc" id="blog">
+      <div class="si">
+        <div class="st">Blog</div>
+        <h2 class="sh">
+          Field Notes on<br /><span class="ac">Cloud Security</span>
+        </h2>
+        <p class="sp">
+          Tutorials, case studies, opinions, and technical deep-dives on
+          Offensive and Defensive security.
+        </p>
+        <div class="bf">
+          <button class="bfb act" data-cat="all">All</button
+          ><button class="bfb" data-cat="field-notes">Field Notes</button
+          ><button class="bfb" data-cat="labs">Labs</button
+          ><button class="bfb" data-cat="signal">Signal</button
+          >
         </div>
+        <div class="bg2" id="bg">
+          <a
+            href="posts/soc2-compliance-doesnt-mean-youre-secure.html"
+            class="bc"
+            data-cat="signal"
+            style="--cc: #fbbf24"
+            ><div class="bcc"><span class="bcd"></span>Signal</div>
+            <h3>SOC2 Compliance Doesn't Mean You're Secure</h3>
+            <p>
+              The gap between checkbox compliance and actual security resilience
+              — and what CISOs should prioritize beyond the audit.
+            </p>
+            <span class="bcm">4 min read · Apr 2026</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/ryY-FhEei"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Practical Windows Forensics</h3>
+            <p>
+              A practitioner's guide to DFIR — evidence extraction with KAPE,
+              registry analysis with RegRipper, MFT timelines, and execution
+              artifacts.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/BJM_4wQiF"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Malware Analysis Fundamentals</h3>
+            <p>
+              Breaking down the anatomy of malware — concealers, replicators,
+              and bombs — with a methodology for static and dynamic analysis.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/SJZdlJ9fc"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Web Application Security 101</h3>
+            <p>
+              Walking a web app from recon to exploitation — content discovery,
+              IDOR, SSRF, XSS, command injection, and authentication bypasses.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/Bky8gHBr9"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Network Security 101</h3>
+            <p>
+              Passive and active reconnaissance — DNS enumeration, Nmap
+              scanning, ARP discovery, and the tools behind network-level
+              assessments.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/rJIpZylCt"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Nmap 101</h3>
+            <p>
+              Port scanning fundamentals — why proper enumeration is the
+              backbone of effective exploitation, with practical scan types and
+              techniques.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/BylVoWkRt"
+            target="_blank"
+            class="bc"
+            data-cat="field-notes"
+            style="--cc: #388eff"
+            ><div class="bcc"><span class="bcd"></span>Field Notes</div>
+            <h3>Red Team Training: Kenobi</h3>
+            <p>
+              Walkthrough of the Kenobi CTF — enumerating Samba shares,
+              exploiting ProFTPD, and leveraging SUID binaries for privilege
+              escalation.
+            </p>
+            <span class="bcm">Walkthrough · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/S16xjvuK0"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Windows Privilege Escalation</h3>
+            <p>
+              Techniques and references for escalating privileges on Windows
+              systems — from service misconfigurations to token impersonation.
+            </p>
+            <span class="bcm">Reference · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="field-notes"
+            style="--cc: #388eff"
+            ><div class="bcc"><span class="bcd"></span>Field Notes</div>
+            <h3>How We Eliminated 99% of Vulnerabilities in 90 Days</h3>
+            <p>
+              The playbook for driving a production codebase from hundreds of
+              known vulnerabilities to zero Critical/High/Medium issues.
+            </p>
+            <span class="bcm">8 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="signal"
+            style="--cc: #fbbf24"
+            ><div class="bcc"><span class="bcd"></span>Signal</div>
+            <h3>Your Shift-Left Security Strategy Is Probably Failing</h3>
+            <p>
+              Most teams are shifting the wrong things left. Here's what real
+              shift-left security looks like.
+            </p>
+            <span class="bcm">4 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>AWS IAM Least-Privilege: A Practical Walkthrough</h3>
+            <p>
+              How to audit, tighten, and automate IAM policies without breaking
+              production.
+            </p>
+            <span class="bcm">10 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="field-notes"
+            style="--cc: #388eff"
+            ><div class="bcc"><span class="bcd"></span>Field Notes</div>
+            <h3>The $30K Brute-Force Problem We Solved in a Weekend</h3>
+            <p>
+              How quantifying security costs in dollars unlocked engineering
+              buy-in and a 95% MTTR reduction.
+            </p>
+            <span class="bcm">5 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          >
+        </div>
+      </div>
+    </section>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
-            <div class="icon"><i class="bi bi-binoculars"></i></div>
-            <h4 class="title"><a href="">Incident Response</a></h4>
-            <p class="description">I can help you respond to a myriad of cyber security incidents in a timely manner to
-              prevent loss of revenue.</p>
+    <section class="sc sa" id="certs">
+      <div class="si">
+        <div class="st">Certifications</div>
+        <h2 class="sh">Validated<br /><span class="ac">Expertise</span></h2>
+        <div class="cg">
+          <div class="cc ccf">
+            <div class="ib ibl">
+              <svg><use href="#cl" /></svg>
+            </div>
+            <h3>Professional Cloud Security Engineer</h3>
+            <div class="cci">Google Cloud · Sep 2023</div>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon"><i class="bi bi-card-checklist"></i></div>
-            <h4 class="title"><a href="">Penetration Testing</a></h4>
-            <p class="description">I can help you understand the limitations of your current security controls through
-              simulating cyber attacks on your infrastructure as per Adversarial TTPs (Tactics, Techniques and
-              Procedures) to help you prepare for cyber attacks.</p>
+          <div class="cc">
+            <div class="ib ibl">
+              <svg><use href="#bc2" /></svg>
+            </div>
+            <h3>LogRhythm Platform Administrator (LRPA)</h3>
+            <div class="cci">LogRhythm (Exabeam) · Aug 2024</div>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon"><i class="bi bi-bar-chart"></i></div>
-            <h4 class="title"><a href="">Cybersecurity Reviews</a></h4>
-            <p class="description">I can help you assess your overall compliance with industry leading security and
-              privacy legistlation.</p>
+          <div class="cc">
+            <div class="ib ibl">
+              <svg><use href="#lk" /></svg>
+            </div>
+            <h3>Security, Compliance & Identity Fundamentals</h3>
+            <div class="cci">Microsoft · Apr 2022</div>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon"><i class="bi bi-briefcase"></i></div>
-            <h4 class="title"><a href="">Security Awareness Training</a></h4>
-            <p class="description">I can help train your users on how to combat Social Engineering - users don't always
-              have to be the weakest link :)</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon"><i class="bi bi-brightness-high"></i></div>
-            <h4 class="title"><a href="">CyberSecurity Strategy</a></h4>
-            <p class="description">I can help you design and implement security strategies inline with your
-              organization's security goals and objectives.</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon"><i class="bi bi-calendar4-week"></i></div>
-            <h4 class="title"><a href="">Mentorship</a></h4>
-            <p class="description">I can help you understand the nuances of running effective tech-focused mentorship
-              programs.</p>
+          <div class="cc">
+            <div class="ib ibl">
+              <svg><use href="#gb" /></svg>
+            </div>
+            <h3>HCIA Routing & Switching</h3>
+            <div class="cci">Huawei · Apr 2020</div>
           </div>
         </div>
-
-      </div>
-    </section><!-- End Services Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Testimonials</h2>
-          <p>Hear from some of the people I've had the pleasure of working with:</p>
+        <div class="ce">
+          <h3>Education</h3>
+          <p>
+            <strong>BSc Electrical & Telecommunications Engineering</strong> ·
+            Multimedia University of Kenya · 2015 – 2020
+          </p>
         </div>
+      </div>
+    </section>
 
-        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin's communication skills are exceptional! I appreciate the way he is able to get across his points
-                  clearly.<br /> Edwin shares his knowledge, personality, and expertise in the jobs allocated and is
-                  always willing to go the extra mile in managing all of the complexities that might come with an
-                  assignment. <br />On relationship skills, Edwin always has a listening ear. He goes out of his way to
-                  ensure that his colleagues are doing okay at a personal level, to get ot know the challenges
-                  experienced during an assignment and even offer solutions.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Associate 2</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin embodies the PwC virtue of care, where he reaches out to fellow staff to get an understanding on
-                  how they are fairing on. He is also a great team player, with great insights during discussions.
-                  <br />He takes initiative everytime he is faced with situations where great leadership is needed, he
-                  is great at what he does and shows passion in his work!
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Associate</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin had an exemplary year and has performed at a level that would be expected of someone more senior
-                  and experienced. I therefore recommend him for the highest Impact Tier attainable in the firm.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Director</h3>
-                <h4> PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin applies himself to learning new concepts. He is focused on what he wants to achieve in his
-                  career and performs his work with diligence.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Associate 2</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin was very instrumental during the delivery of the engagement and applied his experience in
-                  Vulnerability Management to identify system fraud risks within the client environment. <br />He
-                  demonstrated very good leadership during the engagement and contributed during client meetings.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Senior Manager</h3>
-                <h4> PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Working with Edwin is a joy because of his work ethic in driving value realization for clients.<br />
-                  Edwin has continuously demonstrated integrity in his communication, an essential quality for a
-                  cybersecurity consultant.<br /> In client engagements where we worked together, Edwin was keen to make
-                  a difference and better the state of security and robustness of client controls and policies.<br />
-                  Outside of work he has inspired me to pursue continuous growth in my field of specialization.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Associate 2</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="100">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin is reliable and self driven; he took responsibility of the engagement from the start - engaged
-                  the client, drafted a very good quality report, held walkthrough sessions that demonstrated
-                  understanding of the banking processes and provided valuable recommendations.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Senior Manager</h3>
-                <h4> PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="200">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin had a quick learning curve with FTS tools on his first engagement and supported the team with
-                  forensic analysis effectively. He takes initiative and researches on the best tools for the task at
-                  hand.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Senior Manager</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="300">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin has great interpersonal skills. He relates well with people, even those outside his immediate
-                  project team. He is also open to leveraging on the expertise of other team members to ensure that he
-                  is efficient in his work.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Senior Associate</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item" data-aos="fade-up" data-aos-delay="400">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Edwin has demonstrated the values of care and brings in a fresh perspective in IT and security into
-                  the forensics practice. Edwin should continue reimagining the possible as he makes a difference in the
-                  society.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <h3>Senior Associate</h3>
-                <h4>PwC</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
+    <section class="sc" id="testimonials">
+      <div class="si">
+        <div class="st">Testimonials</div>
+        <h2 class="sh">
+          What People Say About<br /><span class="ac">Working With Me</span>
+        </h2>
+        <div class="teg">
+          <div class="te tew">
+            <p>
+              "What stands out most is Edwin's communication and leadership
+              style — clear, firm, and assertive, while consistently respectful
+              and collaborative. He has rapidly established a modern security
+              foundation at Oyster, leading the rollout and tuning of our WAF to
+              protect our platform without downtime."
+            </p>
+            <div class="tea">
+              <strong>Engineering Leadership</strong> · Oyster HR
+            </div>
           </div>
-          <div class="swiper-pagination"></div>
+          <div class="te">
+            <p>
+              "Edwin drove DRATA compliance and played a key role in our
+              successful SOC 2 audit. He significantly strengthened our cloud
+              and infrastructure security by reshaping our AWS organization and
+              IAM guardrails, and enforcing stronger access controls across the
+              board."
+            </p>
+            <div class="tea">
+              <strong>Engineering Leadership</strong> · Oyster HR
+            </div>
+          </div>
+          <div class="te">
+            <p>
+              "He helped operate a high-leverage responsible disclosure and bug
+              bounty program that surfaces real risks early, quantifies avoided
+              risk versus cost, and pushes us toward more systematic fixes for
+              recurring authorization issues."
+            </p>
+            <div class="tea">
+              <strong>Engineering Leadership</strong> · Oyster HR
+            </div>
+          </div>
+          <div class="te">
+            <p>
+              "Edwin had an exemplary year and has performed at a level that
+              would be expected of someone more senior and experienced. I
+              therefore recommend him for the highest Impact Tier attainable."
+            </p>
+            <div class="tea"><strong>Director</strong> · PwC</div>
+          </div>
+          <div class="te">
+            <p>
+              "Edwin was very instrumental during engagement delivery and
+              applied his experience in Vulnerability Management to identify
+              system fraud risks. He demonstrated very good leadership and
+              contributed during client meetings."
+            </p>
+            <div class="tea"><strong>Senior Manager</strong> · PwC</div>
+          </div>
+          <div class="te tew">
+            <p>
+              "Working with Edwin is a joy because of his work ethic in driving
+              value realization for clients. He has continuously demonstrated
+              integrity in his communication — an essential quality for a
+              cybersecurity consultant."
+            </p>
+            <div class="tea"><strong>Associate</strong> · PwC</div>
+          </div>
         </div>
-
       </div>
-    </section><!-- End Testimonials Section -->
+    </section>
 
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-          <p>If you'd like to reach me you can ping me on <a
-              href="mailto:infosecnarrator@gmail.com">infosecnarrator@gmail.com</a></p>
+    <section class="sc sa" id="contact">
+      <div class="si coc">
+        <div class="st">Contact</div>
+        <h2 class="sh">Let's<br /><span class="ac">Connect</span></h2>
+        <p class="sp">
+          Open to cloud security roles, AppSec leadership positions, and
+          security consulting engagements.
+        </p>
+        <div class="cls">
+          <a href="mailto:infosecnarrator@gmail.com" class="cl"
+            ><div class="ib ibl">
+              <svg><use href="#ml" /></svg>
+            </div>
+            <div class="cll">Email</div>
+            <div class="clv">infosecnarrator@gmail.com</div></a
+          ><a
+            href="https://www.linkedin.com/in/muema-edwin/"
+            target="_blank"
+            class="cl"
+            ><div class="ib ibl">
+              <svg><use href="#li" /></svg>
+            </div>
+            <div class="cll">LinkedIn</div>
+            <div class="clv">linkedin.com/in/muema-edwin</div></a
+          ><a
+            href="https://github.com/infosecnarrator"
+            target="_blank"
+            class="cl"
+            ><div class="ib ibl">
+              <svg><use href="#gh" /></svg>
+            </div>
+            <div class="cll">GitHub</div>
+            <div class="clv">github.com/infosecnarrator</div></a
+          >
         </div>
-
-
       </div>
-    </section><!-- End Contact Section -->
+    </section>
 
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>infosecNarrator</span></strong>
+    <footer class="ft">
+      <div class="fti">
+        <span class="ftb">muema<span class="d">.sec</span></span
+        ><span class="ftc"
+          >© 2026 Edwin Muema. Cloud Security Engineering.</span
+        >
       </div>
-    </div>
-  </footer><!-- End  Footer -->
+    </footer>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
-</body>
-
+    <script>
+      document.getElementById("nt").addEventListener("click", () => {
+        document.getElementById("nls").classList.toggle("act2");
+      });
+      document
+        .querySelectorAll(".nk")
+        .forEach((l) =>
+          l.addEventListener("click", () =>
+            document.getElementById("nls").classList.remove("act2"),
+          ),
+        );
+      document.querySelectorAll(".bfb").forEach((b) => {
+        b.addEventListener("click", () => {
+          document
+            .querySelectorAll(".bfb")
+            .forEach((x) => x.classList.remove("act"));
+          b.classList.add("act");
+          const c = b.dataset.cat;
+          document.querySelectorAll(".bc").forEach((d) => {
+            d.style.display = c === "all" || d.dataset.cat === c ? "" : "none";
+          });
+        });
+      });
+      const ob = new IntersectionObserver(
+        (e) => {
+          e.forEach((x) => {
+            if (x.isIntersecting) x.target.classList.add("vi");
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
+      );
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .querySelectorAll(
+            ".st,.sh,.sp,.atx,.ac2,.ic,.ti,.bc,.cc,.te,.mr,.aw,.cl,.ce,.mt",
+          )
+          .forEach((e, i) => {
+            e.classList.add("rv");
+            const p = e.closest(".sc") || e.closest("header");
+            const s = p ? p.querySelectorAll(".rv") : [];
+            e.style.transitionDelay = `${Math.min(Array.from(s).indexOf(e) * 0.05, 0.35)}s`;
+            ob.observe(e);
+          });
+      });
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    </script>
+  </body>
 </html>

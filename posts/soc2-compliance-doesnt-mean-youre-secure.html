@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOC2 Compliance Doesn't Mean You're Secure | muema.sec</title>
+  <meta name="description" content="The gap between checkbox compliance and actual security resilience — and what CISOs should prioritize beyond the audit.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#060810;--bg2:#0B0F1A;--bgc:#0E1322;--brd:#1A2540;--brdh:#2A3D60;--tx:#CBD5E1;--txs:#7B8BA5;--txm:#475569;--txb:#F1F5F9;--ac:#388EFF;--acl:#60A5FA;--acd:rgba(56,142,255,0.1);--gr:#34D399;--am:#FBBF24;--rd:#F87171;--fd:'Outfit',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fb);background:var(--bg);color:var(--tx);line-height:1.8;-webkit-font-smoothing:antialiased}
+    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px)}
+    a{color:var(--ac);text-decoration:none}a:hover{color:var(--acl)}
+    strong{color:var(--txb);font-weight:600}
+    ::selection{background:var(--ac);color:var(--bg)}
+
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,8,16,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);height:64px;display:flex;align-items:center;padding:0 28px}
+    .nav-inner{max-width:760px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center}
+    .nav a{font-family:var(--fd);font-weight:700;font-size:17px;color:var(--txb);text-decoration:none;display:flex;align-items:center;gap:10px}
+    .nav a .d{color:var(--ac)}
+    .back{font-family:var(--fm);font-size:12px;color:var(--txs);padding:6px 14px;border:1px solid var(--brd);border-radius:6px;transition:all 0.25s;text-decoration:none}
+    .back:hover{border-color:var(--ac);color:var(--ac)}
+
+    .article{max-width:760px;margin:0 auto;padding:100px 28px 80px}
+    .meta{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    .cat{font-family:var(--fm);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;padding:4px 12px;border-radius:4px;color:var(--am);background:rgba(251,191,36,0.1);display:flex;align-items:center;gap:6px}
+    .cat-dot{width:6px;height:6px;border-radius:50%;background:var(--am)}
+    .date{font-family:var(--fm);font-size:12px;color:var(--txm)}
+
+    h1{font-family:var(--fd);font-size:clamp(28px,4vw,40px);font-weight:800;color:var(--txb);line-height:1.2;letter-spacing:-1px;margin-bottom:24px}
+    .lead{font-size:18px;color:var(--txs);line-height:1.75;border-left:3px solid var(--am);padding-left:20px;margin-bottom:40px}
+
+    .content h2{font-family:var(--fd);font-size:24px;font-weight:700;color:var(--txb);margin-top:48px;margin-bottom:16px;letter-spacing:-0.5px}
+    .content h3{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--txb);margin-top:32px;margin-bottom:12px}
+    .content p{margin-bottom:18px;font-size:16px;line-height:1.85}
+    .content ul,.content ol{margin-bottom:18px;padding-left:24px}
+    .content li{margin-bottom:8px;font-size:16px;line-height:1.7}
+    .content blockquote{border-left:3px solid var(--am);padding:16px 20px;margin:24px 0;background:var(--bgc);border-radius:0 8px 8px 0;font-style:italic;color:var(--txs)}
+    .content code{font-family:var(--fm);font-size:14px;background:var(--bgc);padding:2px 6px;border-radius:4px;color:var(--ac)}
+    .content pre{background:#0A0E16;border:1px solid var(--brd);border-radius:8px;padding:20px;margin:24px 0;overflow-x:auto;font-family:var(--fm);font-size:14px;line-height:1.7;color:var(--tx)}
+    .content a{text-decoration:underline;text-underline-offset:3px}
+
+    /* Illustration boxes */
+    .illus{margin:32px 0;padding:28px 24px;background:var(--bgc);border:1px solid var(--brd);border-radius:12px;position:relative;overflow:hidden}
+    .illus::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--am),transparent)}
+    .illus-title{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--txb);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .illus-title svg{width:18px;height:18px;stroke:var(--am);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .illus-row{display:flex;gap:16px;margin-bottom:0}
+    .illus-col{flex:1;padding:16px;border-radius:8px;border:1px solid var(--brd)}
+    .illus-col.pass{border-color:rgba(52,211,153,0.2);background:rgba(52,211,153,0.04)}
+    .illus-col.fail{border-color:rgba(248,113,113,0.2);background:rgba(248,113,113,0.04)}
+    .illus-col h4{font-family:var(--fm);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+    .illus-col.pass h4{color:var(--gr)}
+    .illus-col.fail h4{color:var(--rd)}
+    .illus-col ul{list-style:none;padding:0;margin:0}
+    .illus-col li{font-size:13px;color:var(--txs);padding:4px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+    .illus-col.pass li::before{content:'';display:inline-block;width:14px;height:14px;flex-shrink:0;margin-top:3px;border-radius:50%;border:1.5px solid var(--gr);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2334D399' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E") center/8px no-repeat}
+    .illus-col.fail li::before{content:'';display:inline-block;width:14px;height:14px;flex-shrink:0;margin-top:3px;border-radius:50%;border:1.5px solid var(--rd);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F87171' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E") center/8px no-repeat}
+
+    /* Callout box */
+    .callout{margin:28px 0;padding:20px 24px;border-radius:8px;display:flex;align-items:flex-start;gap:14px}
+    .callout-warn{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.15)}
+    .callout-info{background:var(--acd);border:1px solid rgba(56,142,255,0.15)}
+    .callout-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+    .callout p{margin:0;font-size:14px;line-height:1.7}
+    .callout strong{font-size:14px}
+
+    /* Numbered list with visual weight */
+    .priority-list{counter-reset:pri;margin:24px 0;padding:0}
+    .priority-list li{list-style:none;display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--brd)}
+    .priority-list li:last-child{border-bottom:none}
+    .priority-list li::before{counter-increment:pri;content:counter(pri);font-family:var(--fd);font-size:28px;font-weight:800;color:var(--ac);min-width:36px;line-height:1}
+    .priority-list li div{flex:1}
+    .priority-list h4{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--txb);margin-bottom:4px}
+    .priority-list p{font-size:14px;color:var(--txs);margin:0;line-height:1.7}
+
+    .post-footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .post-footer a{font-family:var(--fm);font-size:12px;color:var(--txs);transition:color 0.25s;text-decoration:none}
+    .post-footer a:hover{color:var(--ac)}
+
+    @media(max-width:640px){.article{padding:80px 20px 60px}.illus-row{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html">muema<span class="d">.sec</span></a>
+      <a href="../index.html#blog" class="back">← All Posts</a>
+    </div>
+  </nav>
+
+  <article class="article">
+    <div class="meta">
+      <span class="cat" style="--cat-color:#FBBF24"><span class="cat-dot"></span>Signal</span>
+      <span class="date">Apr 17, 2026 · 4 min read</span>
+    </div>
+
+    <h1>SOC2 Compliance Doesn't Mean You're Secure</h1>
+
+    <p class="lead">The gap between checkbox compliance and actual security resilience — and what CISOs should prioritize beyond the audit.</p>
+
+    <div class="content">
+
+      <h2>The audit tests controls. Attackers test assumptions.</h2>
+
+      <p>Here's the core of the problem. A SOC 2 audit evaluates whether your documented controls exist and operate effectively over a period of time. That's genuinely useful. But it's evaluating your <em>system of controls</em> — not whether your environment can withstand a determined adversary.</p>
+
+      <p>Think about it this way: an auditor will verify that you have an access control policy, that you review access quarterly, and that terminated employees are deprovisioned within 24 hours. All good. But they're unlikely to ask whether your developers have IAM roles that can assume cross-account privileges, whether your API endpoints enforce object-level authorization consistently, or whether your Terraform state files are encrypted at rest with proper access logging.</p>
+
+      <p>Those gaps are where actual breaches happen.</p>
+
+      <div class="illus">
+        <div class="illus-title">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          What the audit checks vs. what attackers exploit
+        </div>
+        <div class="illus-row">
+          <div class="illus-col pass">
+            <h4>SOC 2 audit checks</h4>
+            <ul>
+              <li>Access control policy exists</li>
+              <li>Quarterly access reviews documented</li>
+              <li>MFA enabled for production</li>
+              <li>Encryption at rest configured</li>
+              <li>Incident response plan documented</li>
+              <li>Vendor risk assessments on file</li>
+            </ul>
+          </div>
+          <div class="illus-col fail">
+            <h4>What actually gets exploited</h4>
+            <ul>
+              <li>Overly broad IAM roles with cross-account access</li>
+              <li>Broken object-level authorization on APIs</li>
+              <li>Secrets hardcoded in CI/CD pipelines</li>
+              <li>Unencrypted Terraform state files</li>
+              <li>IR plan never tested under real conditions</li>
+              <li>Vendor SaaS tokens with permanent access</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <blockquote>Compliance tells you where the floor is. Security is about how far above it you're actually standing.</blockquote>
+
+      <h2>The three biggest blind spots I see</h2>
+
+      <p>After working across banking, consulting, and SaaS environments, I keep running into the same compliance-versus-security gaps. Here are the three that are worth noting:</p>
+
+      <h3>1. Authorization logic in application code</h3>
+
+      <p>SOC 2 checks whether you have access controls. It doesn't evaluate whether your API endpoints properly enforce that User A can't access User B's data by changing an ID in the request. Broken object-level authorization (BOLA) is consistently in the OWASP Top 10 and is the most common vulnerability I find in code reviews. No compliance framework will catch this for you — it requires actual security testing against your application logic.</p>
+
+      <h3>2. Secrets management in practice vs. policy</h3>
+
+      <p>Your policy says secrets must be stored in a secrets manager. Your audit evidence shows the secrets manager exists. But in the real codebase, I often find API keys in <code>.env</code> files committed to Git, Terraform variables with default values containing credentials, and CI/CD pipeline environment variables that every developer on the team can read. The policy is compliant. The implementation isn't secure.</p>
+
+      <h3>3. Third-party integration depth</h3>
+
+      <p>The audit verifies you assess vendor risk. But do you know what permissions that Slack integration actually has? Can that analytics tool's API token access customer PII? When was the last time you reviewed the OAuth scopes granted to third-party apps connected to your production environment? According to <a href="https://www.verizon.com/business/resources/reports/dbir/">Verizon's 2025 report</a>, third-party breaches have doubled to 30% of all incidents. The vendor risk questionnaire your compliance team filed isn't going to catch a compromised OAuth token.</p>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </span>
+        <div>
+          <p><strong>Real example:</strong> Okta — one of the most recognized identity providers in the industry — had a valid SOC 2 report in place when attackers compromised their support platform in 2023 and stole customer HTTP access tokens. The compliance framework was intact. The security gap was in how support systems accessed production data.</p>
+        </div>
+      </div>
+
+      <h2>What to actually prioritize beyond the audit</h2>
+
+      <p>I'm not saying SOC 2 is useless — it's not. It builds the structural foundation that most organizations need: documented policies, access reviews, incident response plans, change management. These are genuinely important. The problem is treating the audit as the destination instead of the starting line.</p>
+
+      <p>If I were advising a CISO who just celebrated passing their SOC 2 audit, here's what I'd tell them to invest in next:</p>
+
+      <ol class="priority-list">
+        <li>
+          <div>
+            <h4>Threat-informed penetration testing</h4>
+            <p>Not the annual checkbox pentest. I mean targeted testing against your actual attack surface — your APIs, your authorization logic, your cloud IAM configurations. Engage testers who think like adversaries, not auditors.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Automated security in the SDLC</h4>
+            <p>SAST/DAST/SCA scanning integrated into your CI/CD pipeline with severity-based gating. If a Critical vulnerability can merge to main, your compliance certificate doesn't matter. Block it at the PR level.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>IAM hardening beyond what's audited</h4>
+            <p>Audit your AWS IAM policies with Access Analyzer. Enforce least-privilege not just for humans but for service accounts, CI/CD runners, and third-party integrations. Review cross-account trust relationships. This is the unsexy work that prevents the expensive incidents.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Tabletop your incident response plan</h4>
+            <p>Having a documented IR plan satisfies the auditor. Running a realistic tabletop exercise — where you simulate a compromised developer laptop at 2 AM and see who actually knows what to do — tells you whether the plan works. Most don't survive first contact with a real incident.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Continuous authorization review, not quarterly</h4>
+            <p>Quarterly access reviews are a compliance artifact. In a fast-moving engineering org, permissions drift weekly. Automate access reviews, implement just-in-time access for sensitive systems, and alert on privilege escalation in real time.</p>
+          </div>
+        </li>
+      </ol>
+
+      <h2>The bottom line</h2>
+
+      <p>I've helped organizations achieve SOC 2 compliance, and I've also been the person who finds the vulnerabilities that the audit didn't cover. Both experiences taught me the same lesson: compliance and security are related but not interchangeable. One satisfies your customers' procurement teams. The other keeps their data safe.</p>
+
+      <p>If you're a CISO, don't let the audit report become a security blanket. Use it as the foundation it is, then build the threat-informed, engineering-integrated security program on top of it. Your auditor checks the boxes. Your attackers don't.</p>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#388EFF" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </span>
+        <div>
+          <p><strong>If you're building a security program and want to talk about what comes after SOC 2, I'm always happy to connect.</strong> Drop me a message on <a href="https://www.linkedin.com/in/muema-edwin/">LinkedIn</a> or email me at <a href="mailto:infosecnarrator@gmail.com">infosecnarrator@gmail.com</a>.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="../index.html#blog">← Back to all posts</a>
+      <a href="https://www.linkedin.com/in/muema-edwin/" target="_blank">Discuss on LinkedIn →</a>
+    </div>
+  </article>
+</body>
+</html>
