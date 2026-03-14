@@ -1,0 +1,2244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Edwin Muema | Cloud Security Engineer</title>
+    <meta
+      name="description"
+      content="Cloud Security Engineer specializing in securing cloud-native applications from code to production. AppSec, DevSecOps, VAPT."
+    />
+    <meta property="og:title" content="Edwin Muema | Cloud Security Engineer" />
+    <meta
+      property="og:description"
+      content="Securing cloud-native applications from code to production."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://infosecnarrator.github.io" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #060810;
+        --bg2: #0b0f1a;
+        --bgc: #0e1322;
+        --bge: #12192b;
+        --brd: #1a2540;
+        --brdh: #2a3d60;
+        --tx: #cbd5e1;
+        --txs: #7b8ba5;
+        --txm: #475569;
+        --txb: #f1f5f9;
+        --ac: #388eff;
+        --acl: #60a5fa;
+        --acd: rgba(56, 142, 255, 0.1);
+        --acg: rgba(56, 142, 255, 0.18);
+        --gr: #34d399;
+        --grd: rgba(52, 211, 153, 0.1);
+        --am: #fbbf24;
+        --amd: rgba(251, 191, 36, 0.1);
+        --fd: "Outfit", sans-serif;
+        --fb: "DM Sans", sans-serif;
+        --fm: "JetBrains Mono", monospace;
+        --mw: 1140px;
+        --r: 8px;
+        --rl: 12px;
+        --t: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 72px;
+      }
+      body {
+        font-family: var(--fb);
+        background: var(--bg);
+        color: var(--tx);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      a {
+        color: var(--ac);
+        text-decoration: none;
+        transition: color var(--t);
+      }
+      a:hover {
+        color: var(--acl);
+      }
+      strong {
+        color: var(--txb);
+        font-weight: 600;
+      }
+      ::selection {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.025) 2px,
+          rgba(0, 0, 0, 0.025) 4px
+        );
+      }
+      .gbg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(56, 142, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(56, 142, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .gbg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 25% 15%,
+            rgba(56, 142, 255, 0.06) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 75% 85%,
+            rgba(52, 211, 153, 0.025) 0%,
+            transparent 45%
+          );
+      }
+      .svgd {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(6, 8, 16, 0.9);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--brd);
+      }
+      .ni {
+        max-width: var(--mw);
+        margin: 0 auto;
+        padding: 0 28px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nl {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .lm {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        border: 1.5px solid var(--ac);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--fm);
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--ac);
+        background: var(--acd);
+        position: relative;
+      }
+      .lm::before {
+        content: "";
+        position: absolute;
+        inset: -3px;
+        border-radius: 10px;
+        border: 1px solid rgba(56, 142, 255, 0.08);
+      }
+      .lt {
+        font-family: var(--fd);
+        font-weight: 700;
+        font-size: 17px;
+        color: var(--txb);
+        letter-spacing: -0.3px;
+      }
+      .lt .d {
+        color: var(--ac);
+      }
+      .nls {
+        display: flex;
+        gap: 4px;
+      }
+      .nk {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--txs);
+        padding: 7px 14px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        transition: all var(--t);
+        text-decoration: none;
+      }
+      .nk:hover {
+        color: var(--ac);
+        background: var(--acd);
+      }
+      .nt {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: 1px solid var(--brd);
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 8px;
+      }
+      .nt span {
+        width: 18px;
+        height: 1.5px;
+        background: var(--txs);
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 100px 28px 80px;
+        max-width: var(--mw);
+        margin: 0 auto;
+        gap: 56px;
+      }
+      .hc {
+        flex: 1;
+        min-width: 0;
+      }
+      .hs {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--gr);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        padding: 6px 14px;
+        background: var(--grd);
+        border: 1px solid rgba(52, 211, 153, 0.18);
+        border-radius: 20px;
+      }
+      .sd {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gr);
+        animation: pls 2s ease-in-out infinite;
+      }
+      @keyframes pls {
+        0%,
+        100% {
+          opacity: 1;
+          box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+        }
+        50% {
+          opacity: 0.7;
+          box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+        }
+      }
+      .ht {
+        font-family: var(--fd);
+        font-size: clamp(32px, 4.5vw, 52px);
+        font-weight: 800;
+        color: var(--txb);
+        line-height: 1.1;
+        letter-spacing: -1.8px;
+        margin-bottom: 24px;
+      }
+      .ht .ac {
+        color: var(--ac);
+      }
+      .hsb {
+        font-size: 17px;
+        color: var(--txs);
+        line-height: 1.75;
+        max-width: 540px;
+        margin-bottom: 40px;
+      }
+      .hm {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 40px;
+      }
+      .mt {
+        padding: 16px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        position: relative;
+        overflow: hidden;
+      }
+      .mt::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), transparent);
+        opacity: 0;
+        transition: opacity var(--t);
+      }
+      .mt:hover {
+        border-color: var(--brdh);
+        transform: translateY(-2px);
+      }
+      .mt:hover::before {
+        opacity: 1;
+      }
+      .mv {
+        display: block;
+        font-family: var(--fd);
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--ac);
+        letter-spacing: -0.5px;
+        line-height: 1;
+      }
+      .ml {
+        display: block;
+        font-family: var(--fm);
+        font-size: 10px;
+        color: var(--txm);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 8px;
+        line-height: 1.4;
+      }
+      .hcta {
+        display: flex;
+        gap: 12px;
+      }
+      .btn {
+        font-family: var(--fd);
+        font-size: 14px;
+        font-weight: 600;
+        padding: 13px 28px;
+        border-radius: var(--r);
+        cursor: pointer;
+        letter-spacing: -0.2px;
+        transition: all var(--t);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: none;
+      }
+      .bp {
+        background: var(--ac);
+        color: var(--bg);
+      }
+      .bp:hover {
+        background: var(--acl);
+        color: var(--bg);
+        box-shadow:
+          0 0 28px var(--acg),
+          0 4px 16px rgba(0, 0, 0, 0.3);
+      }
+      .bo {
+        background: transparent;
+        color: var(--txs);
+        border: 1px solid var(--brd);
+      }
+      .bo:hover {
+        color: var(--ac);
+        border-color: var(--ac);
+        background: var(--acd);
+      }
+      .hud {
+        width: 440px;
+        flex-shrink: 0;
+        border: 1px solid var(--brd);
+        border-radius: var(--rl);
+        overflow: hidden;
+        background: var(--bg2);
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.5),
+          0 0 40px rgba(56, 142, 255, 0.04);
+        position: relative;
+      }
+      .hud::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 20%;
+        right: 20%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--ac), transparent);
+      }
+      .hbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: var(--bgc);
+        border-bottom: 1px solid var(--brd);
+      }
+      .hdts {
+        display: flex;
+        gap: 6px;
+      }
+      .hdt {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .hdt.r {
+        background: #ff5f57;
+      }
+      .hdt.y {
+        background: #febc2e;
+      }
+      .hdt.g {
+        background: #28c840;
+      }
+      .hlb {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--txm);
+      }
+      .hbd {
+        padding: 20px;
+        font-family: var(--fm);
+        font-size: 13px;
+        line-height: 1.9;
+      }
+      .hl {
+        opacity: 0;
+        animation: hi 0.3s ease forwards;
+        animation-delay: var(--d);
+      }
+      @keyframes hi {
+        from {
+          opacity: 0;
+          transform: translateX(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hp {
+        color: var(--ac);
+        margin-right: 8px;
+      }
+      .hcc {
+        color: var(--txb);
+      }
+      .ho {
+        color: var(--txs);
+      }
+      .hk {
+        color: var(--am);
+      }
+      .hvl {
+        color: var(--tx);
+      }
+      .ha {
+        color: var(--ac);
+      }
+      .hcr {
+        color: var(--ac);
+        animation: bl 1s step-end infinite;
+      }
+      @keyframes bl {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .sc {
+        padding: 100px 28px;
+      }
+      .sa {
+        background: var(--bg2);
+      }
+      .si {
+        max-width: var(--mw);
+        margin: 0 auto;
+      }
+      .st {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ac);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .st::before {
+        content: "";
+        width: 20px;
+        height: 1px;
+        background: var(--ac);
+      }
+      .sh {
+        font-family: var(--fd);
+        font-size: clamp(28px, 3.5vw, 40px);
+        font-weight: 800;
+        color: var(--txb);
+        line-height: 1.15;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+      }
+      .sh .ac {
+        color: var(--ac);
+      }
+      .sp {
+        font-size: 17px;
+        color: var(--txs);
+        max-width: 580px;
+        line-height: 1.75;
+        margin-bottom: 48px;
+      }
+      .ib {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--acd);
+        border: 1px solid rgba(56, 142, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .ib svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--ac);
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .ibl {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+      }
+      .ibl svg {
+        width: 20px;
+        height: 20px;
+      }
+      .ibg {
+        background: var(--grd);
+        border-color: rgba(52, 211, 153, 0.12);
+      }
+      .ibg svg {
+        stroke: var(--gr);
+      }
+      .iba {
+        background: var(--amd);
+        border-color: rgba(251, 191, 36, 0.12);
+      }
+      .iba svg {
+        stroke: var(--am);
+      }
+      .ag {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 56px;
+        margin-top: 40px;
+      }
+      .atx p {
+        margin-bottom: 18px;
+        font-size: 16px;
+        color: var(--tx);
+        line-height: 1.8;
+      }
+      .acs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .ac2 {
+        padding: 20px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        position: relative;
+        overflow: hidden;
+      }
+      .ac2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), transparent);
+        opacity: 0;
+        transition: opacity var(--t);
+      }
+      .ac2:hover {
+        border-color: var(--brdh);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+      .ac2:hover::after {
+        opacity: 1;
+      }
+      .ac2 .ib {
+        margin-bottom: 14px;
+      }
+      .ac2 h3 {
+        font-family: var(--fd);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--txb);
+        margin-bottom: 6px;
+      }
+      .ac2 p {
+        font-size: 12.5px;
+        color: var(--txs);
+        line-height: 1.6;
+      }
+      .ig {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .ic {
+        padding: 28px 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        position: relative;
+      }
+      .ic::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: var(--r);
+        background: linear-gradient(
+          135deg,
+          rgba(56, 142, 255, 0.12),
+          transparent 40%
+        );
+        opacity: 0;
+        transition: opacity var(--t);
+        z-index: -1;
+      }
+      .ic:hover {
+        border-color: rgba(56, 142, 255, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+      }
+      .ic:hover::before {
+        opacity: 1;
+      }
+      .icv {
+        font-family: var(--fd);
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--ac);
+        letter-spacing: -1px;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      .ict {
+        font-family: var(--fd);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--txb);
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .icd {
+        font-size: 13px;
+        color: var(--txs);
+        line-height: 1.6;
+      }
+      .tl {
+        margin-top: 48px;
+        padding-left: 36px;
+        position: relative;
+      }
+      .tl::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 12px;
+        bottom: 12px;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          var(--ac),
+          var(--brd) 30%,
+          var(--brd) 70%,
+          transparent
+        );
+      }
+      .ti {
+        position: relative;
+        margin-bottom: 40px;
+      }
+      .ti:last-child {
+        margin-bottom: 0;
+      }
+      .tm {
+        position: absolute;
+        left: -36px;
+        top: 12px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 2px solid var(--ac);
+        background: var(--bg);
+        z-index: 1;
+      }
+      .ti:first-child .tm {
+        background: var(--ac);
+        box-shadow: 0 0 12px var(--acg);
+      }
+      .tc {
+        padding: 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: border-color var(--t);
+      }
+      .tc:hover {
+        border-color: var(--brdh);
+      }
+      .th {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tr {
+        font-family: var(--fd);
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--txb);
+        letter-spacing: -0.3px;
+      }
+      .tco {
+        font-size: 14px;
+        color: var(--ac);
+        margin-top: 3px;
+      }
+      .td {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--txm);
+        padding: 5px 12px;
+        background: var(--bg2);
+        border-radius: 20px;
+        border: 1px solid var(--brd);
+        white-space: nowrap;
+      }
+      .tgs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .tg {
+        font-family: var(--fm);
+        font-size: 10px;
+        padding: 3px 10px;
+        border-radius: 4px;
+        background: var(--acd);
+        color: var(--ac);
+        border: 1px solid rgba(56, 142, 255, 0.1);
+        letter-spacing: 0.3px;
+      }
+      .tb {
+        list-style: none;
+        padding: 0;
+      }
+      .tb li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: var(--tx);
+        line-height: 1.65;
+      }
+      .tb li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ac);
+        opacity: 0.5;
+      }
+      .mg {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        margin-top: 40px;
+      }
+      .mtx p {
+        font-size: 16px;
+        color: var(--tx);
+        line-height: 1.8;
+        margin-bottom: 28px;
+      }
+      .mr {
+        padding: 18px 20px;
+        border-left: 2px solid var(--ac);
+        background: var(--bgc);
+        border-radius: 0 var(--r) var(--r) 0;
+        margin-bottom: 12px;
+      }
+      .mr h4 {
+        font-family: var(--fd);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--txb);
+        margin-bottom: 4px;
+      }
+      .mr p {
+        font-size: 13px;
+        color: var(--txs);
+        line-height: 1.6;
+        margin-bottom: 0;
+      }
+      .awl {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ac);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .aw {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: var(--tx);
+        transition: border-color var(--t);
+      }
+      .aw:hover {
+        border-color: var(--brdh);
+      }
+      .bf {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+      }
+      .bfb {
+        font-family: var(--fm);
+        font-size: 11px;
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--brd);
+        background: transparent;
+        color: var(--txs);
+        cursor: pointer;
+        transition: all var(--t);
+        letter-spacing: 0.5px;
+      }
+      .bfb:hover {
+        border-color: var(--brdh);
+        color: var(--txb);
+      }
+      .bfb.act {
+        background: var(--acd);
+        border-color: var(--ac);
+        color: var(--ac);
+      }
+      .bg2 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .bc {
+        padding: 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        display: block;
+        color: inherit;
+      }
+      .bc::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--cc, var(--ac));
+        opacity: 0;
+        transition: opacity var(--t);
+      }
+      .bc:hover {
+        border-color: var(--brdh);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+        color: inherit;
+      }
+      .bc:hover::before {
+        opacity: 1;
+      }
+      .bcc {
+        font-family: var(--fm);
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--cc, var(--ac));
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .bcd {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--cc, var(--ac));
+      }
+      .bc h3 {
+        font-family: var(--fd);
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--txb);
+        line-height: 1.4;
+        margin-bottom: 10px;
+        letter-spacing: -0.2px;
+      }
+      .bc p {
+        font-size: 13px;
+        color: var(--txs);
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+      .bcm {
+        font-family: var(--fm);
+        font-size: 11px;
+        color: var(--txm);
+      }
+      .bca {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        opacity: 0;
+        transition: opacity var(--t);
+        font-family: var(--fm);
+        font-size: 12px;
+        color: var(--ac);
+      }
+      .bc:hover .bca {
+        opacity: 1;
+      }
+      .cg {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 40px;
+      }
+      .cc {
+        padding: 24px 20px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+      }
+      .cc:hover {
+        border-color: var(--brdh);
+      }
+      .ccf {
+        border-color: var(--ac);
+        background: linear-gradient(
+          135deg,
+          rgba(56, 142, 255, 0.06),
+          transparent
+        );
+      }
+      .cc .ibl {
+        margin-bottom: 14px;
+      }
+      .cc h3 {
+        font-family: var(--fd);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--txb);
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+      .cci {
+        font-size: 12px;
+        color: var(--txs);
+      }
+      .ce {
+        margin-top: 24px;
+        padding: 20px 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+      }
+      .ce h3 {
+        font-family: var(--fm);
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ac);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+      }
+      .ce p {
+        font-size: 14px;
+      }
+      .teg {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 40px;
+      }
+      .te {
+        padding: 28px 24px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        position: relative;
+      }
+      .te::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), transparent);
+      }
+      .tew {
+        grid-column: 1/-1;
+      }
+      .te p {
+        font-size: 14px;
+        color: var(--tx);
+        line-height: 1.75;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+      .tea {
+        font-family: var(--fm);
+        font-size: 12px;
+        color: var(--txs);
+      }
+      .coc {
+        text-align: center;
+      }
+      .coc .sp {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .coc .st {
+        justify-content: center;
+      }
+      .coc .st::before {
+        display: none;
+      }
+      .cls {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .cl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 32px 40px;
+        background: var(--bgc);
+        border: 1px solid var(--brd);
+        border-radius: var(--r);
+        transition: all var(--t);
+        text-decoration: none;
+        min-width: 200px;
+      }
+      .cl:hover {
+        border-color: var(--ac);
+        transform: translateY(-3px);
+        box-shadow:
+          0 12px 36px rgba(0, 0, 0, 0.3),
+          0 0 20px var(--acg);
+      }
+      .cl .ibl {
+        margin-bottom: 14px;
+      }
+      .cll {
+        font-family: var(--fd);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--txb);
+        margin-bottom: 4px;
+      }
+      .clv {
+        font-size: 12px;
+        color: var(--txs);
+      }
+      .ft {
+        border-top: 1px solid var(--brd);
+        padding: 28px;
+      }
+      .fti {
+        max-width: var(--mw);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .ftb {
+        font-family: var(--fd);
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--txs);
+      }
+      .ftb .d {
+        color: var(--ac);
+        opacity: 0.5;
+      }
+      .ftc {
+        font-size: 12px;
+        color: var(--txm);
+      }
+      .rv {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .rv.vi {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (max-width: 960px) {
+        .hero {
+          flex-direction: column;
+          min-height: auto;
+          padding-top: 100px;
+        }
+        .hud {
+          width: 100%;
+        }
+        .hm {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .ag,
+        .mg {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .ig,
+        .bg2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cg {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .teg {
+          grid-template-columns: 1fr;
+        }
+        .tew {
+          grid-column: 1;
+        }
+      }
+      @media (max-width: 640px) {
+        .nls {
+          display: none;
+          position: absolute;
+          top: 64px;
+          left: 0;
+          right: 0;
+          background: var(--bg);
+          border-bottom: 1px solid var(--brd);
+          flex-direction: column;
+          padding: 12px;
+        }
+        .nls.act2 {
+          display: flex;
+        }
+        .nt {
+          display: flex;
+        }
+        .hm {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .mv {
+          font-size: 22px;
+        }
+        .hcta {
+          flex-direction: column;
+        }
+        .ig,
+        .bg2,
+        .cg,
+        .acs {
+          grid-template-columns: 1fr;
+        }
+        .sc {
+          padding: 64px 20px;
+        }
+        .th {
+          flex-direction: column;
+        }
+        .cls {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gbg"></div>
+    <svg class="svgd" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="sw" viewBox="0 0 24 24">
+        <path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
+        <path d="M13 19l6-6" />
+        <path d="M16 16l4 4" />
+        <path d="M19 21l2-2" />
+      </symbol>
+      <symbol id="sh" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </symbol>
+      <symbol id="wr" viewBox="0 0 24 24">
+        <path
+          d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+        />
+      </symbol>
+      <symbol id="cl" viewBox="0 0 24 24">
+        <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" />
+      </symbol>
+      <symbol id="tp" viewBox="0 0 24 24">
+        <path d="M6 9H4.5a2.5 2.5 0 010-5H6" />
+        <path d="M18 9h1.5a2.5 2.5 0 000-5H18" />
+        <path d="M4 22h16" />
+        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+        <path d="M18 2H6v7a6 6 0 0012 0V2z" />
+      </symbol>
+      <symbol id="aw2" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="7" />
+        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+      </symbol>
+      <symbol id="ml" viewBox="0 0 24 24">
+        <path
+          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+        />
+        <polyline points="22,6 12,13 2,6" />
+      </symbol>
+      <symbol id="li" viewBox="0 0 24 24">
+        <path
+          d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"
+        />
+        <rect x="2" y="9" width="4" height="12" />
+        <circle cx="4" cy="4" r="2" />
+      </symbol>
+      <symbol id="gh" viewBox="0 0 24 24">
+        <path
+          d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
+        />
+      </symbol>
+      <symbol id="lk" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0110 0v4" />
+      </symbol>
+      <symbol id="gb" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path
+          d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
+        />
+      </symbol>
+      <symbol id="bc2" viewBox="0 0 24 24">
+        <line x1="12" y1="20" x2="12" y2="10" />
+        <line x1="18" y1="20" x2="18" y2="4" />
+        <line x1="6" y1="20" x2="6" y2="16" />
+      </symbol>
+    </svg>
+
+    <nav class="nav">
+      <div class="ni">
+        <a href="#" class="nl"
+          ><span class="lm">EM</span
+          ><span class="lt">muema<span class="d">.sec</span></span></a
+        >
+        <div class="nls" id="nls">
+          <a href="#about" class="nk">About</a
+          ><a href="#impact" class="nk">Impact</a
+          ><a href="#experience" class="nk">Experience</a
+          ><a href="#blog" class="nk">Blog</a
+          ><a href="#certs" class="nk">Certs</a
+          ><a href="#contact" class="nk">Contact</a>
+        </div>
+        <button class="nt" id="nt" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <header class="hero" id="hero">
+      <div class="hc">
+        <div class="hs"><span class="sd"></span>Open to opportunities</div>
+        <h1 class="ht">
+          Securing cloud-native apps
+          <span class="ac">from code to production</span>
+        </h1>
+        <p class="hsb">
+          I'm Edwin Muema — a Cloud Security Engineer with 6+ years across
+          Offensive and Defensive security. I embed security into the SDLC so
+          engineering teams ship secure code by default.
+        </p>
+        <div class="hm">
+          <div class="mt">
+            <span class="mv">3,000+</span
+            ><span class="ml">Attacks Blocked Weekly</span>
+          </div>
+          <div class="mt">
+            <span class="mv">99%</span><span class="ml">Vuln Remediation</span>
+          </div>
+          <div class="mt">
+            <span class="mv">95%</span
+            ><span class="ml">Faster Incident Response</span>
+          </div>
+          <div class="mt">
+            <span class="mv">$30K</span><span class="ml">Annual Savings</span>
+          </div>
+        </div>
+        <div class="hcta">
+          <a href="#contact" class="btn bp"
+            ><svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <use href="#ml" /></svg
+            >Get in Touch</a
+          ><a href="#experience" class="btn bo">View Experience</a>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="hbar">
+          <div class="hdts">
+            <span class="hdt r"></span><span class="hdt y"></span
+            ><span class="hdt g"></span>
+          </div>
+          <span class="hlb">muema@cloud-sec:~</span>
+        </div>
+        <div class="hbd">
+          <div class="hl" style="--d: 0.2s">
+            <span class="hp">$</span><span class="hcc"> whoami</span>
+          </div>
+          <div class="hl" style="--d: 0.6s">
+            <span class="ho">Cloud Security Engineer | AppSec Lead</span>
+          </div>
+          <div class="hl" style="--d: 1s">
+            <span class="hp">$</span><span class="hcc"> cat skills.yml</span>
+          </div>
+          <div class="hl" style="--d: 1.4s">
+            <span class="hk">Offensive:</span
+            ><span class="hvl"> VAPT, Red Team, Social Engineering</span>
+          </div>
+          <div class="hl" style="--d: 1.7s">
+            <span class="hk">Defensive:</span
+            ><span class="hvl"> DFIR, WAF, SIEM, EDR/XDR, SOC Ops</span>
+          </div>
+          <div class="hl" style="--d: 2s">
+            <span class="hk">DevSecOps:</span
+            ><span class="hvl"> SAST, DAST, SCA, CI/CD Security</span>
+          </div>
+          <div class="hl" style="--d: 2.3s">
+            <span class="hk">Cloud:</span
+            ><span class="hvl"> AWS, GCP, Heroku, Terraform</span>
+          </div>
+          <div class="hl" style="--d: 2.7s">
+            <span class="hp">$</span><span class="hcc"> cat mission.md</span>
+          </div>
+          <div class="hl" style="--d: 3.1s">
+            <span class="ha"
+              >"Shrink the attack surface — systematically."</span
+            >
+          </div>
+          <div class="hl" style="--d: 3.5s">
+            <span class="hp">$</span><span class="hcr">_</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="sc" id="about">
+      <div class="si">
+        <div class="st">About</div>
+        <h2 class="sh">
+          The Security Engineer Who<br /><span class="ac"
+            >Thinks Like a Threat Actor</span
+          >
+        </h2>
+        <div class="ag">
+          <div class="atx">
+            <p>
+              My career started in the offensive trenches — penetration testing,
+              vulnerability research, and digital forensics. That attacker's
+              mindset now powers everything I build on the defensive side.
+            </p>
+            <p>
+              At <strong>Oyster HR</strong>, I lead application security for a
+              Globally Distributed Engineering Team. I've implemented WAF
+              protections blocking thousands of attacks weekly, driven
+              vulnerability remediation to near-zero across the codebase, and
+              built DevSecOps pipelines that make security invisible to
+              developers.
+            </p>
+            <p>
+              Before that, I secured banking infrastructure at
+              <strong>SBM Bank</strong>, led incident response on multi-million
+              dollar cases at <strong>PwC</strong>, and conducted penetration
+              tests across Financial services, Telecoms, and Energy sectors.
+            </p>
+            <p>
+              I hold the
+              <strong>Google Cloud Professional Security Engineer</strong>
+              certification and am passionate about mentoring the next
+              generation of security professionals through
+              <strong>KamiLimu</strong>, where I've directed technical curricula
+              for 34+ mentees.
+            </p>
+          </div>
+          <div class="acs">
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#sw" /></svg>
+              </div>
+              <h3>Offensive Roots</h3>
+              <p>VAPT, Red teaming, Social Engineering</p>
+            </div>
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#sh" /></svg>
+              </div>
+              <h3>Defensive Depth</h3>
+              <p>
+                Digital Forensics with EnCase, FTK, Cellebrite; SOC operations,
+                SIEM engineering, Endpoint protection (1,500+ endpoints),
+                Network security
+              </p>
+            </div>
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#wr" /></svg>
+              </div>
+              <h3>DevSecOps Builder</h3>
+              <p>
+                SAST/DAST/SCA in CI/CD, Terraform infrastructure-as-code
+                security, secrets management, shift-left in SDLC
+              </p>
+            </div>
+            <div class="ac2">
+              <div class="ib">
+                <svg><use href="#cl" /></svg>
+              </div>
+              <h3>Cloud Security</h3>
+              <p>AWS, GCP, Harness — IAM, RBAC, WAF configuration</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc sa" id="impact">
+      <div class="si">
+        <div class="st">Impact</div>
+        <h2 class="sh">
+          Security Measured in<br /><span class="ac">Business Outcomes</span>
+        </h2>
+        <p class="sp">
+          I believe security work that can't be quantified can't be improved.
+          Here's what the numbers say.
+        </p>
+        <div class="ig">
+          <div class="ic">
+            <div class="icv">3,000+</div>
+            <div class="ict">
+              Cyber attacks blocked weekly via CloudFlare WAF
+            </div>
+            <div class="icd">
+              Zero false-positive outages. Less than 10ms latency impact.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">99%</div>
+            <div class="ict">Vulnerability remediation in 3 months</div>
+            <div class="icd">
+              Eliminated all Critical, High, and Medium issues from the main app
+              codebase.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">95%</div>
+            <div class="ict">MTTR reduction for brute-force attacks</div>
+            <div class="icd">
+              Saving ~$30K annually in engineering time and incident response
+              costs.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">0.45%</div>
+            <div class="ict">Cost-to-risk ratio on Bug Bounty program</div>
+            <div class="icd">
+              Responsible disclosure program delivering exceptional ROI through
+              early remediation.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">32%</div>
+            <div class="ict">False positive reduction in SOC operations</div>
+            <div class="icd">
+              Fine-tuned SIEM detection rules to improve analyst efficiency at
+              SBM Bank.
+            </div>
+          </div>
+          <div class="ic">
+            <div class="icv">$7M+</div>
+            <div class="ict">Total losses addressed in incident response</div>
+            <div class="icd">
+              Led IR at PwC covering digital forensics, e-discovery, and
+              attribution across Cloud, On-Prem, and Mobile.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc" id="experience">
+      <div class="si">
+        <div class="st">Experience</div>
+        <h2 class="sh">
+          Where I've<br /><span class="ac">Made an Impact</span>
+        </h2>
+        <div class="tl">
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Senior Security Engineer | AppSec Lead</div>
+                  <div class="tco">Oyster HR</div>
+                </div>
+                <div class="td">Jan 2025 – Present</div>
+              </div>
+              <div class="tgs">
+                <span class="tg">CloudFlare WAF</span
+                ><span class="tg">Snyk</span><span class="tg">Aikido</span
+                ><span class="tg">AWS</span><span class="tg">DRATA</span
+                ><span class="tg">Terraform</span
+                ><span class="tg">Harness</span>
+              </div>
+              <ul class="tb">
+                <li>
+                  Blocked 3,000+ attacks/week via CloudFlare WAF with zero
+                  false-positive outages and &lt;10ms performance impact
+                </li>
+                <li>
+                  Led vulnerability management achieving 99% remediation in 3
+                  months — zero Critical/High/Medium issues remaining
+                </li>
+                <li>Reduced brute-force MTTR by 95%, saving ~$30K annually</li>
+                <li>
+                  Spearheaded shift-left security across the SDLC with Product
+                  Development leadership
+                </li>
+                <li>
+                  Orchestrated SAST/DAST/SCA integration into CI/CD pipelines
+                  via Snyk and Aikido
+                </li>
+                <li>
+                  Architected secure RBAC enforcing least-privilege across AWS,
+                  Heroku, Harness, and GitHub
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Senior Cyber Security Engineer</div>
+                  <div class="tco">SBM Bank (State Bank of Mauritius)</div>
+                </div>
+                <div class="td">Nov 2022 – Jan 2025</div>
+              </div>
+              <div class="tgs">
+                <span class="tg">SOC Ops</span><span class="tg">Checkpoint</span
+                ><span class="tg">F5 WAF</span
+                ><span class="tg">Portnox NAC</span
+                ><span class="tg">Trend Micro</span><span class="tg">Azure</span
+                ><span class="tg">AWS</span><span class="tg">GCP</span>
+              </div>
+              <ul class="tb">
+                <li>
+                  Led SOC operations — reduced false positive rate by 32%
+                  through detection rule fine-tuning
+                </li>
+                <li>
+                  Directed VAPT for internal and external assessments including
+                  statutory extended scope audits
+                </li>
+                <li>
+                  Managed endpoint protection for 1,500 endpoints using Trend
+                  Micro, FireEye, and Symantec
+                </li>
+                <li>
+                  Led Privileged Identity Management and MFA across on-prem and
+                  cloud (Azure, AWS, GCP)
+                </li>
+                <li>
+                  Directed network security: NAC (Portnox), perimeter firewalls
+                  (Checkpoint), WAF (F5) aligned with ZTNA
+                </li>
+                <li>
+                  Trained 500 staff on security awareness and 30 IT staff on
+                  secure coding and DevSecOps
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Senior Cyber Security Consultant</div>
+                  <div class="tco">PricewaterhouseCoopers (PwC)</div>
+                </div>
+                <div class="td">Jul 2021 – Nov 2022</div>
+              </div>
+              <div class="tgs">
+                <span class="tg">DFIR</span><span class="tg">EnCase</span
+                ><span class="tg">Cellebrite</span
+                ><span class="tg">ISO 27001</span
+                ><span class="tg">NIST CSF</span><span class="tg">PCI-DSS</span>
+              </div>
+              <ul class="tb">
+                <li>
+                  Led incident response addressing $7M+ in losses — digital
+                  forensics with EnCase, Intella, Cellebrite, FTK
+                </li>
+                <li>
+                  Conducted VAPT for 10 organizations covering web, mobile,
+                  cloud, and on-prem networks
+                </li>
+                <li>
+                  Co-developed DevSecOps strategies implementing CI/CD security
+                  automation for 3 clients
+                </li>
+                <li>
+                  Performed security assessments against ISO 27001, NIST CSF,
+                  PCI-DSS, CIS Top 20, OWASP, MITRE ATT&CK
+                </li>
+                <li>
+                  Led solution architecture reviews for security tooling to
+                  maximize ROI for 4 clients
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Penetration Tester & SOC Analyst</div>
+                  <div class="tco">Visibility Technology Services</div>
+                </div>
+                <div class="td">Oct 2020 – Jun 2021</div>
+              </div>
+              <ul class="tb">
+                <li>
+                  Conducted VAPT for 5 organizations — internal, external
+                  penetration tests, and social engineering
+                </li>
+                <li>
+                  Served as 1 of 4 SOC analysts in the Security Incident
+                  Response Team on-call rotation
+                </li>
+                <li>
+                  Analyzed logs using Splunk, ELK, and FortiSIEM within client
+                  SLAs
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ti">
+            <div class="tm"></div>
+            <div class="tc">
+              <div class="th">
+                <div>
+                  <div class="tr">Cyber Security Researcher</div>
+                  <div class="tco">Serianu Africa Cyber Immersion Center</div>
+                </div>
+                <div class="td">Sep 2019 – Apr 2020</div>
+              </div>
+              <ul class="tb">
+                <li>
+                  Researched data privacy in Ethiopia and Botswana — published
+                  in Serianu Africa 2020 Cybersecurity Report
+                </li>
+                <li>
+                  Coordinated a team of 8 researchers covering data protection
+                  across 5 African countries
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc sa" id="mentorship">
+      <div class="si">
+        <div class="st">Mentorship</div>
+        <h2 class="sh">
+          Building the Next Generation of<br /><span class="ac"
+            >Security Professionals</span
+          >
+        </h2>
+        <div class="mg">
+          <div class="mtx">
+            <p>
+              Through
+              <a href="https://www.kamilimu.org/" target="_blank">KamiLimu</a>,
+              a multi-award winning structured mentorship program, I've
+              contributed to upskilling the next generation of tech talent.
+            </p>
+            <div class="mr">
+              <h4>Director, ICT Tracks</h4>
+              <p>
+                Coordinated technical curricula covering Data Science, Cloud
+                Engineering, Software Development, and Cybersecurity for 34
+                mentees over 8 months.
+              </p>
+            </div>
+            <div class="mr">
+              <h4>KamiLimu Fellow (Cohort 6.0)</h4>
+              <p>
+                Mentored 5 cybersecurity students. Their project — Sentinel
+                Master (Managed WAF for Financial Institutions on AWS) — won
+                First Place in the Innovation Competition.
+              </p>
+            </div>
+            <div class="mr">
+              <h4>Mentee (Cohort 5.0)</h4>
+              <p>
+                One of 36 selected from a 20% acceptance rate. Won the Global EC
+                Council Cyber Mega Challenge ($6,000 scholarship), plus public
+                speaking and cybersecurity track competitions.
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="awl">Recognition</div>
+            <div class="aw">
+              <div class="ib">
+                <svg><use href="#tp" /></svg>
+              </div>
+              <div>
+                <strong>Global Winner</strong> — EC Council Cyber Mega Challenge
+              </div>
+            </div>
+            <div class="aw">
+              <div class="ib">
+                <svg><use href="#aw2" /></svg>
+              </div>
+              <div><strong>KamiLimu Fellow</strong> — Cohort 6.0</div>
+            </div>
+            <div class="aw">
+              <div class="ib ibg">
+                <svg><use href="#aw2" /></svg>
+              </div>
+              <div><strong>Winner</strong> — Public Speaking Competition</div>
+            </div>
+            <div class="aw">
+              <div class="ib iba">
+                <svg><use href="#aw2" /></svg>
+              </div>
+              <div>
+                <strong>Winner</strong> — Cybersecurity Track Mock Job
+                Competition
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc" id="blog">
+      <div class="si">
+        <div class="st">Blog</div>
+        <h2 class="sh">
+          Field Notes on<br /><span class="ac">Cloud Security</span>
+        </h2>
+        <p class="sp">
+          Tutorials, case studies, opinions, and technical deep-dives on
+          Offensive and Defensive security.
+        </p>
+        <div class="bf">
+          <button class="bfb act" data-cat="all">All</button
+          ><button class="bfb" data-cat="field-notes">Field Notes</button
+          ><button class="bfb" data-cat="labs">Labs</button
+          ><button class="bfb" data-cat="signal">Signal</button
+          >
+        </div>
+        <div class="bg2" id="bg">
+          <a
+            href="posts/soc2-compliance-doesnt-mean-youre-secure.html"
+            class="bc"
+            data-cat="signal"
+            style="--cc: #fbbf24"
+            ><div class="bcc"><span class="bcd"></span>Signal</div>
+            <h3>SOC2 Compliance Doesn't Mean You're Secure</h3>
+            <p>
+              The gap between checkbox compliance and actual security resilience
+              — and what CISOs should prioritize beyond the audit.
+            </p>
+            <span class="bcm">4 min read · Apr 2026</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/ryY-FhEei"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Practical Windows Forensics</h3>
+            <p>
+              A practitioner's guide to DFIR — evidence extraction with KAPE,
+              registry analysis with RegRipper, MFT timelines, and execution
+              artifacts.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/BJM_4wQiF"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Malware Analysis Fundamentals</h3>
+            <p>
+              Breaking down the anatomy of malware — concealers, replicators,
+              and bombs — with a methodology for static and dynamic analysis.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/SJZdlJ9fc"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Web Application Security 101</h3>
+            <p>
+              Walking a web app from recon to exploitation — content discovery,
+              IDOR, SSRF, XSS, command injection, and authentication bypasses.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/Bky8gHBr9"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Network Security 101</h3>
+            <p>
+              Passive and active reconnaissance — DNS enumeration, Nmap
+              scanning, ARP discovery, and the tools behind network-level
+              assessments.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/rJIpZylCt"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Nmap 101</h3>
+            <p>
+              Port scanning fundamentals — why proper enumeration is the
+              backbone of effective exploitation, with practical scan types and
+              techniques.
+            </p>
+            <span class="bcm">Deep Dive · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/BylVoWkRt"
+            target="_blank"
+            class="bc"
+            data-cat="field-notes"
+            style="--cc: #388eff"
+            ><div class="bcc"><span class="bcd"></span>Field Notes</div>
+            <h3>Red Team Training: Kenobi</h3>
+            <p>
+              Walkthrough of the Kenobi CTF — enumerating Samba shares,
+              exploiting ProFTPD, and leveraging SUID binaries for privilege
+              escalation.
+            </p>
+            <span class="bcm">Walkthrough · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="https://hackmd.io/@codeAssassin/S16xjvuK0"
+            target="_blank"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>Windows Privilege Escalation</h3>
+            <p>
+              Techniques and references for escalating privileges on Windows
+              systems — from service misconfigurations to token impersonation.
+            </p>
+            <span class="bcm">Reference · HackMD</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="field-notes"
+            style="--cc: #388eff"
+            ><div class="bcc"><span class="bcd"></span>Field Notes</div>
+            <h3>How We Eliminated 99% of Vulnerabilities in 90 Days</h3>
+            <p>
+              The playbook for driving a production codebase from hundreds of
+              known vulnerabilities to zero Critical/High/Medium issues.
+            </p>
+            <span class="bcm">8 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="signal"
+            style="--cc: #fbbf24"
+            ><div class="bcc"><span class="bcd"></span>Signal</div>
+            <h3>Your Shift-Left Security Strategy Is Probably Failing</h3>
+            <p>
+              Most teams are shifting the wrong things left. Here's what real
+              shift-left security looks like.
+            </p>
+            <span class="bcm">4 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="labs"
+            style="--cc: #34d399"
+            ><div class="bcc"><span class="bcd"></span>Labs</div>
+            <h3>AWS IAM Least-Privilege: A Practical Walkthrough</h3>
+            <p>
+              How to audit, tighten, and automate IAM policies without breaking
+              production.
+            </p>
+            <span class="bcm">10 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          ><a
+            href="#blog"
+            class="bc"
+            data-cat="field-notes"
+            style="--cc: #388eff"
+            ><div class="bcc"><span class="bcd"></span>Field Notes</div>
+            <h3>The $30K Brute-Force Problem We Solved in a Weekend</h3>
+            <p>
+              How quantifying security costs in dollars unlocked engineering
+              buy-in and a 95% MTTR reduction.
+            </p>
+            <span class="bcm">5 min read · Coming Soon</span
+            ><span class="bca">Read →</span></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="sc sa" id="certs">
+      <div class="si">
+        <div class="st">Certifications</div>
+        <h2 class="sh">Validated<br /><span class="ac">Expertise</span></h2>
+        <div class="cg">
+          <div class="cc ccf">
+            <div class="ib ibl">
+              <svg><use href="#cl" /></svg>
+            </div>
+            <h3>Professional Cloud Security Engineer</h3>
+            <div class="cci">Google Cloud · Sep 2023</div>
+          </div>
+          <div class="cc">
+            <div class="ib ibl">
+              <svg><use href="#bc2" /></svg>
+            </div>
+            <h3>LogRhythm Platform Administrator (LRPA)</h3>
+            <div class="cci">LogRhythm (Exabeam) · Aug 2024</div>
+          </div>
+          <div class="cc">
+            <div class="ib ibl">
+              <svg><use href="#lk" /></svg>
+            </div>
+            <h3>Security, Compliance & Identity Fundamentals</h3>
+            <div class="cci">Microsoft · Apr 2022</div>
+          </div>
+          <div class="cc">
+            <div class="ib ibl">
+              <svg><use href="#gb" /></svg>
+            </div>
+            <h3>HCIA Routing & Switching</h3>
+            <div class="cci">Huawei · Apr 2020</div>
+          </div>
+        </div>
+        <div class="ce">
+          <h3>Education</h3>
+          <p>
+            <strong>BSc Electrical & Telecommunications Engineering</strong> ·
+            Multimedia University of Kenya · 2015 – 2020
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc" id="testimonials">
+      <div class="si">
+        <div class="st">Testimonials</div>
+        <h2 class="sh">
+          What People Say About<br /><span class="ac">Working With Me</span>
+        </h2>
+        <div class="teg">
+          <div class="te tew">
+            <p>
+              "What stands out most is Edwin's communication and leadership
+              style — clear, firm, and assertive, while consistently respectful
+              and collaborative. He has rapidly established a modern security
+              foundation at Oyster, leading the rollout and tuning of our WAF to
+              protect our platform without downtime."
+            </p>
+            <div class="tea">
+              <strong>Engineering Leadership</strong> · Oyster HR
+            </div>
+          </div>
+          <div class="te">
+            <p>
+              "Edwin drove DRATA compliance and played a key role in our
+              successful SOC 2 audit. He significantly strengthened our cloud
+              and infrastructure security by reshaping our AWS organization and
+              IAM guardrails, and enforcing stronger access controls across the
+              board."
+            </p>
+            <div class="tea">
+              <strong>Engineering Leadership</strong> · Oyster HR
+            </div>
+          </div>
+          <div class="te">
+            <p>
+              "He helped operate a high-leverage responsible disclosure and bug
+              bounty program that surfaces real risks early, quantifies avoided
+              risk versus cost, and pushes us toward more systematic fixes for
+              recurring authorization issues."
+            </p>
+            <div class="tea">
+              <strong>Engineering Leadership</strong> · Oyster HR
+            </div>
+          </div>
+          <div class="te">
+            <p>
+              "Edwin had an exemplary year and has performed at a level that
+              would be expected of someone more senior and experienced. I
+              therefore recommend him for the highest Impact Tier attainable."
+            </p>
+            <div class="tea"><strong>Director</strong> · PwC</div>
+          </div>
+          <div class="te">
+            <p>
+              "Edwin was very instrumental during engagement delivery and
+              applied his experience in Vulnerability Management to identify
+              system fraud risks. He demonstrated very good leadership and
+              contributed during client meetings."
+            </p>
+            <div class="tea"><strong>Senior Manager</strong> · PwC</div>
+          </div>
+          <div class="te tew">
+            <p>
+              "Working with Edwin is a joy because of his work ethic in driving
+              value realization for clients. He has continuously demonstrated
+              integrity in his communication — an essential quality for a
+              cybersecurity consultant."
+            </p>
+            <div class="tea"><strong>Associate</strong> · PwC</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sc sa" id="contact">
+      <div class="si coc">
+        <div class="st">Contact</div>
+        <h2 class="sh">Let's<br /><span class="ac">Connect</span></h2>
+        <p class="sp">
+          Open to cloud security roles, AppSec leadership positions, and
+          security consulting engagements.
+        </p>
+        <div class="cls">
+          <a href="mailto:infosecnarrator@gmail.com" class="cl"
+            ><div class="ib ibl">
+              <svg><use href="#ml" /></svg>
+            </div>
+            <div class="cll">Email</div>
+            <div class="clv">infosecnarrator@gmail.com</div></a
+          ><a
+            href="https://www.linkedin.com/in/muema-edwin/"
+            target="_blank"
+            class="cl"
+            ><div class="ib ibl">
+              <svg><use href="#li" /></svg>
+            </div>
+            <div class="cll">LinkedIn</div>
+            <div class="clv">linkedin.com/in/muema-edwin</div></a
+          ><a
+            href="https://github.com/infosecnarrator"
+            target="_blank"
+            class="cl"
+            ><div class="ib ibl">
+              <svg><use href="#gh" /></svg>
+            </div>
+            <div class="cll">GitHub</div>
+            <div class="clv">github.com/infosecnarrator</div></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer class="ft">
+      <div class="fti">
+        <span class="ftb">muema<span class="d">.sec</span></span
+        ><span class="ftc"
+          >© 2026 Edwin Muema. Cloud Security Engineering.</span
+        >
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("nt").addEventListener("click", () => {
+        document.getElementById("nls").classList.toggle("act2");
+      });
+      document
+        .querySelectorAll(".nk")
+        .forEach((l) =>
+          l.addEventListener("click", () =>
+            document.getElementById("nls").classList.remove("act2"),
+          ),
+        );
+      document.querySelectorAll(".bfb").forEach((b) => {
+        b.addEventListener("click", () => {
+          document
+            .querySelectorAll(".bfb")
+            .forEach((x) => x.classList.remove("act"));
+          b.classList.add("act");
+          const c = b.dataset.cat;
+          document.querySelectorAll(".bc").forEach((d) => {
+            d.style.display = c === "all" || d.dataset.cat === c ? "" : "none";
+          });
+        });
+      });
+      const ob = new IntersectionObserver(
+        (e) => {
+          e.forEach((x) => {
+            if (x.isIntersecting) x.target.classList.add("vi");
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
+      );
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .querySelectorAll(
+            ".st,.sh,.sp,.atx,.ac2,.ic,.ti,.bc,.cc,.te,.mr,.aw,.cl,.ce,.mt",
+          )
+          .forEach((e, i) => {
+            e.classList.add("rv");
+            const p = e.closest(".sc") || e.closest("header");
+            const s = p ? p.querySelectorAll(".rv") : [];
+            e.style.transitionDelay = `${Math.min(Array.from(s).indexOf(e) * 0.05, 0.35)}s`;
+            ob.observe(e);
+          });
+      });
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    </script>
+  </body>
+</html>
